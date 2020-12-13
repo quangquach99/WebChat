@@ -14,13 +14,5 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-<<<<<<< HEAD
-=======
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="test\" />
->>>>>>> 53d8f280d3f0627e4df0bc30ec1098a80f0ec35b
-  </ItemGroup>
-
 </Project>
