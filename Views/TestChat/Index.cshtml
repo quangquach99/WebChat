@@ -1,0 +1,46 @@
+﻿@model IEnumerable<WebChat.Models.User>
+@{
+    ViewData["Title"] = "Test";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Conversation ID
+            </th>
+            <th>
+                Messages
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </th>
+                <th>
+                    @foreach(var conversationId in item.UserConversations)
+                    {
+                    <p>@Html.DisplayFor(c => conversationId.ConversationID)</p>
+                    <br />
+                    }
+                </th>
+                <th>
+                    @foreach (var conversation in item.UserConversations)
+                    {
+                        foreach(var mc in conversation.Conversation.MessageConversations)
+                        {
+                            <p>@Html.DisplayFor(messageConversation => mc.Message.MessageText) : @Html.DisplayFor(sender => mc.Message.Sender.User.FirstName)</p>
+                        }
+                    }
+                </th>
+            </tr>
+        }
+    </tbody>
+</table>
