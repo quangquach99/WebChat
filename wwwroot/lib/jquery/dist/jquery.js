@@ -12,9 +12,7 @@
  * Date: 2020-05-04T22:49Z
  */
 ( function( global, factory ) {
-
 	"use strict";
-
 	if ( typeof module === "object" && typeof module.exports === "object" ) {
 
 		// For CommonJS and CommonJS-like environments where a proper `window`
