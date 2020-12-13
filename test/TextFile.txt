@@ -1,11 +1,1 @@
-<<<<<<< HEAD
-﻿*,
-*::before,
-*::after {
-    box-sizing: border-box;
-}
-
-duong
-=======
-duong
->>>>>>> 27581e93a67ca4ce2286719814b29f9fe57db3b2
+ddddddddddddddddddddddddddddddd
