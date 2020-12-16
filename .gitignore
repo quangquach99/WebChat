@@ -338,3 +338,7 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+
+# DefaultString The ConnectionString to DB
+appsetting.json
+Database.docx
