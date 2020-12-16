@@ -340,5 +340,5 @@ ASALocalRun/
 healthchecksdb
 
 # DefaultString The ConnectionString to DB
-appsetting.json
+appsettings.Development.json
 Database.docx
