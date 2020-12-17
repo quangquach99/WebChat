@@ -10,7 +10,6 @@ namespace WebChat.Data
         }
 
         public DbSet<User> Users { get; set; }
-        public DbSet<Account> Accounts { get; set; }
         public DbSet<Profile> Profiles { get; set; }
         public DbSet<Conversation> Conversations { get; set; }
         public DbSet<UserConversation> UserConversations { get; set; }
@@ -21,7 +20,6 @@ namespace WebChat.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().ToTable("User");
-            modelBuilder.Entity<Account>().ToTable("Account");
             modelBuilder.Entity<Profile>().ToTable("Profile");
             modelBuilder.Entity<Conversation>().ToTable("Conversation");
             modelBuilder.Entity<UserConversation>().ToTable("UserConversation");

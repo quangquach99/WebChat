@@ -24,9 +24,9 @@ namespace WebChat.Data
                     LastName = "Winchester",
                     PhoneNumber = "0000000001",
                     Email = "DeanWinchester@gmail.com",
+                    Password = "deanwinchester",
                     DOB = DateTime.Parse("1989-2-12"),
-                    Gender = 0,
-                    JoinedDate = DateTime.Parse("2020-12-12 04:36:00")
+                    Gender = 0
                 },
                 new User
                 {
@@ -34,35 +34,14 @@ namespace WebChat.Data
                     LastName = "Winchester",
                     PhoneNumber = "0000000002",
                     Email = "MarryWinchester@gmail.com",
+                    Password = "marrywinchester",
                     DOB = DateTime.Parse("1969-2-12"),
-                    Gender = 1,
-                    JoinedDate = DateTime.Parse("2020-12-12 04:36:00")
+                    Gender = 1
                 }
             };
             foreach (User s in users)
             {
                 context.Users.Add(s);
-            }
-            context.SaveChanges();
-
-            var accounts = new Account[]
-            {
-                new Account
-                {
-                    UserID = 1,
-                    UserEmail = "DeanWinchester@gmail.com",
-                    UserPassword = "deanwinchester"
-                },
-                new Account
-                {
-                    UserID = 2,
-                    UserEmail = "MarryWinchester@gmail.com",
-                    UserPassword = "marrywinchester"
-                }
-            };
-            foreach (Account c in accounts)
-            {
-                context.Accounts.Add(c);
             }
             context.SaveChanges();
 

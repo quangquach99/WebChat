@@ -9,7 +9,7 @@ namespace WebChat.GeneralClass
 {
     public class CEncryptor
     {
-        public static string MD5Hash(string text)
+        public string MD5Hash(string text)
         {
             MD5 md5 = new MD5CryptoServiceProvider();
 

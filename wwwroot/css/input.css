@@ -54,7 +54,7 @@ body {
     padding-bottom: 13px;
 }
 
-.login-form input[type="submit"] {
+.login-form input[type="button"] {
     font-family: "Lato", sans-serif;
     font-weight: 400;
     background-color: #1877f2;
@@ -70,18 +70,25 @@ body {
     line-height: 30px;
 }
 
-    .login-form input[type="submit"]:hover {
+    .login-form input[type="button"]:hover {
         background-color: #166fe5;
         cursor: pointer;
     }
 
-    .login-form input[type="submit"]:active {
+    .login-form input[type="button"]:active {
         background-color: #29487d;
         border-color: #29487d;
     }
 
 .login-form-wrap h5 {
     margin-top: 10px;
+}
+
+#showSignUpForm {
+    outline: none !important;
+    border-radius: 9px !important;
+    transition: .2s;
+    text-decoration: none;
 }
 
 .btn-forgot {

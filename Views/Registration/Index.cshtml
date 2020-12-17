@@ -1,0 +1,268 @@
+﻿@model WebChat.Models.User
+@{ 
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Facebook - Đăng nhập hoặc đăng ký</title>
+    <link rel="stylesheet" href="~/css/input.css">
+</head>
+
+<body>
+    <div class="Login-section">
+        <div class="container">
+            <div class="row login-body">
+                <div class="col-md-6">
+                    <div class="lg-logo">
+                        <img class="lg-logo-fb" src="https://static.xx.fbcdn.net/rsrc.php/y8/r/dF5SId3UHWd.svg" alt="Lỗi">
+                    </div>
+                    <h2 class="lg-intro">
+                        Facebook giúp bạn kết nối và chia sẻ với mọi người trong cuộc sống của bạn.
+                    </h2>
+                </div>
+                <div class="col-md-6">
+                    <section class="login-form-wrap">
+                        @if (TempData["success"] != null)
+                        {
+                            <span class="alert-success p-3">
+                                @Html.Raw(@TempData["success"].ToString())
+                            </span>
+                        }
+                        @if (ViewData["existedEmail"] != null)
+                        {
+                            <span class="alert-danger p-3">
+                                @Html.Raw(ViewData["existedEmail"].ToString())
+                            </span>
+                        }
+                        @using (Html.BeginForm("Login", "Registration", FormMethod.Post, new { @class = "login-form" }))
+                        {
+                            <label>
+                                @Html.TextBoxFor(m => m.Email, new { @type = "email", @placeholder = "Email or phone number", @required = "required", @autofocus = "autofocus" })
+                            </label>
+                            <label>
+                                @Html.TextBoxFor(m => m.Password, new { @type = "password", @placeholder = "Password", @required = "required" })
+                            </label>
+                            <input style="border-radius: 9px;width: 80%;" class="btn-primary p-2" type="submit" value="Login" id="Login">
+                        }
+
+                        <h5>
+                            <a class="btn-forgot" href="#">Forgot password ?</a>
+                        </h5>
+                        <hr>
+                        <div style="display: block;">
+                            <a class="btn-success p-3" style="display: inline-flex" id="showSignUpForm" href="#" data-toggle="modal" data-target="#SigninModal">Create new a acount</a>
+                            <div class="modal fade" id="SigninModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Registration</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            @using (Html.BeginForm("Create", "Registration", FormMethod.Post, new { id = "signUpForm" }))
+                                            {
+                                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-6">
+                                                        @Html.TextBoxFor(m => m.FirstName, new { @type = "text", @placeholder = "First Name", @class = "form-control", @autofocus = "autofocus" })
+                                                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        @Html.TextBoxFor(m => m.LastName, new { @type = "text", @placeholder = "Last Name", @class = "form-control" })
+                                                        <span asp-validation-for="LastName" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    @Html.TextBoxFor(m => m.Email, new { @type = "email", @placeholder = "Email", @class = "form-control" })
+                                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    @Html.TextBoxFor(m => m.PhoneNumber, new { @type = "text", @placeholder = "Phone Number", @class = "form-control" })
+                                                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    @Html.EditorFor(m => m.Password, new { htmlAttributes = new { @class = "form-control", placeholder = "Password" } })
+                                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                                </div>
+                                                <input type="hidden" asp-for="DOB" value="" name="DOB" id="DoB" />
+                                                <span asp-validation-for="DOB" class="text-danger"></span>
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-4">
+                                                        <select name="dayDoB" id="dayDoB" class="form-control">
+                                                            @for (var i = 1; i <= 31; i++)
+                                                            {
+                                                                if (DateTime.Now.Day == i)
+                                                                {
+                                                                    <option value="@i" selected>@i</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="@i">@i</option>
+                                                                }
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col-md-4">
+                                                        <select name="monthDoB" id="monthDoB" class="form-control">
+                                                            @for (var i = 1; i <= 12; i++)
+                                                            {
+                                                                if (DateTime.Now.Month == i)
+                                                                {
+                                                                    <option value="@i" selected>Tháng @i</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="@i">Tháng @i</option>
+                                                                }
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col-md-4">
+                                                        <select name="yearDoB" id="yearDoB" class="form-control">
+                                                            @for (var i = DateTime.Now.Year; i >= 1925; i--)
+                                                            {
+                                                                if (i == DateTime.Now.Year)
+                                                                {
+                                                                    <option value="@i" selected>@i</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="@i">@i</option>
+                                                                }
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <label class="title-sigin" for="">Gender</label>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-4">
+                                                        <div class="form-control">
+                                                            <div class="custom-control custom-radio">
+                                                                <input type="radio" asp-for="Gender" id="male" value="0" name="gender" class="custom-control-input">
+                                                                <label class="custom-control-label custom-lable" for="male">Male</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-md-4">
+                                                        <div class="form-control">
+                                                            <div class="custom-control custom-radio">
+                                                                <input type="radio" asp-for="Gender" id="female" value="1" name="gender" class="custom-control-input">
+                                                                <label class="custom-control-label custom-lable" for="female">Female</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-md-4">
+                                                        <div class="form-control">
+                                                            <div class="custom-control custom-radio">
+                                                                <input type="radio" asp-for="Gender" id="another" value="2" name="gender" class="custom-control-input">
+                                                                <label class="custom-control-label custom-lable" for="another">Another</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="form-group">
+                                                        <p class="tutorial-signin">
+                                                            Bằng cách nhấp vào Đăng ký, bạn đồng ý với Điều khoản, Chính sách dữ liệu và Chính sách cookie của chúng tôi. Bạn có thể nhận được thông báo của chúng tôi qua SMS và hủy nhận bất kỳ lúc nào.
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <button type="submit" class="btn btn-success btn-submit-signin" id="signIn">Sign in</button>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="container">
+            <div class="row lg-footer">
+                <div>
+                    <ul class="list-language">
+                        <li>Tiếng Việt</li>
+                        <li><a>English (UK)</a></li>
+                        <li><a>中文(台灣)</a></li>
+                        <li><a>日本語</a></li>
+                        <li><a>한국어</a></li>
+                        <li><a>ภาษาไทย</a></li>
+                        <li><a>Français (France)</a></li>
+                        <li><a>Español</a></li>
+                        <li><a>Português (Brasil)</a></li>
+                        <li><a>Deutsch</a></li>
+                        <li><a>Italiano</a></li>
+
+                    </ul>
+                    <hr>
+                    <ul class="list-link">
+                        <li><a>Đăng ký</a></li>
+                        <li><a>Đăng nhập</a></li>
+                        <li><a>Messenger</a></li>
+                        <li><a>Facebook Lite</a></li>
+                        <li><a>Đăng ký</a></li>
+                        <li><a>Đăng nhập</a></li>
+                        <li><a>Messenger</a></li>
+                        <li><a>Facebook Lite</a></li>
+                        <li><a>Đăng ký</a></li>
+                        <li><a>Đăng nhập</a></li>
+                        <li><a>Messenger</a></li>
+                        <li><a>Facebook Lite</a></li>
+                        <li><a>Đăng ký</a></li>
+                        <li><a>Đăng nhập</a></li>
+                        <li><a>Messenger</a></li>
+                        <li><a>Facebook Lite</a></li>
+                        <li><a>Đăng ký</a></li>
+                        <li><a>Đăng nhập</a></li>
+                        <li><a>Messenger</a></li>
+                        <li><a>Facebook Lite</a></li>
+                        <li><a>Đăng ký</a></li>
+                        <li><a>Đăng nhập</a></li>
+                        <li><a>Messenger</a></li>
+                        <li><a>Facebook Lite</a></li>
+                        <li><a>Đăng ký</a></li>
+                        <li><a>Đăng nhập</a></li>
+                        <li><a>Messenger</a></li>
+                        <li><a>Facebook Lite</a></li>
+                        <li><a>Đăng ký</a></li>
+                        <li><a>Đăng nhập</a></li>
+                        <li><a>Messenger</a></li>
+                        <li><a>Facebook Lite</a></li>
+                        <li><a>Đăng ký</a></li>
+                        <li><a>Đăng nhập</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div><span> Facebook © 2020</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @* OPTION JAVASCRIPT *@
+    <script src="~/js/registrationScript.js"></script>
+    @* JQUERY AND BOOSTRAP *@
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    @* JQUERY VALIDATION *@
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
