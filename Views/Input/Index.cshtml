@@ -1,0 +1,126 @@
+﻿@{
+    ViewData["title"] = "Đăng nhập hoặc đăng kí";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/css/input.css">
+    <title>Facebook - Đăng nhập hoặc đăng ký</title>
+</head>
+
+<body>
+    <div class="Login-section">
+        <div class="container">
+            <div class="row login-body">
+                <div class="col-md-6">
+                    <div class="lg-logo">
+                        <img class="lg-logo-fb" src="https://static.xx.fbcdn.net/rsrc.php/y8/r/dF5SId3UHWd.svg" alt="Lỗi">
+                    </div>
+                    <h2 class="lg-intro">
+                        Facebook giúp bạn kết nối và chia sẻ với mọi người trong cuộc sống của bạn.
+                    </h2>
+                </div>
+                <div class="col-md-6">
+                    <section class="login-form-wrap">
+                        await @Html.PartialAsync("Login")
+                        <h5>
+                            <a class="btn-forgot" href="#">Forgot password ?</a>
+                        </h5>
+                        <hr>
+                        <div style="display: block;">
+                            <a class="button-ad" href="#" data-toggle="modal" data-target="#SigninModal">Create new a acount</a>
+                            <div class="modal fade" id="SigninModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Registration</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            await @Html.PartialAsync("Register")
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="container">
+            <div class="row lg-footer">
+                <div>
+                    <ul class="list-language">
+                        <li>Tiếng Việt</li>
+                        <li><a>English (UK)</a></li>
+                        <li><a>中文(台灣)</a></li>
+                        <li><a>日本語</a></li>
+                        <li><a>한국어</a></li>
+                        <li><a>ภาษาไทย</a></li>
+                        <li><a>Français (France)</a></li>
+                        <li><a>Español</a></li>
+                        <li><a>Português (Brasil)</a></li>
+                        <li><a>Deutsch</a></li>
+                        <li><a>Italiano</a></li>
+
+                    </ul>
+                    <hr>
+                    <ul class="list-link">
+                        <li><a>Đăng ký</a></li>
+                        <li><a>Đăng nhập</a></li>
+                        <li><a>Messenger</a></li>
+                        <li><a>Facebook Lite</a></li>
+                        <li><a>Đăng ký</a></li>
+                        <li><a>Đăng nhập</a></li>
+                        <li><a>Messenger</a></li>
+                        <li><a>Facebook Lite</a></li>
+                        <li><a>Đăng ký</a></li>
+                        <li><a>Đăng nhập</a></li>
+                        <li><a>Messenger</a></li>
+                        <li><a>Facebook Lite</a></li>
+                        <li><a>Đăng ký</a></li>
+                        <li><a>Đăng nhập</a></li>
+                        <li><a>Messenger</a></li>
+                        <li><a>Facebook Lite</a></li>
+                        <li><a>Đăng ký</a></li>
+                        <li><a>Đăng nhập</a></li>
+                        <li><a>Messenger</a></li>
+                        <li><a>Facebook Lite</a></li>
+                        <li><a>Đăng ký</a></li>
+                        <li><a>Đăng nhập</a></li>
+                        <li><a>Messenger</a></li>
+                        <li><a>Facebook Lite</a></li>
+                        <li><a>Đăng ký</a></li>
+                        <li><a>Đăng nhập</a></li>
+                        <li><a>Messenger</a></li>
+                        <li><a>Facebook Lite</a></li>
+                        <li><a>Đăng ký</a></li>
+                        <li><a>Đăng nhập</a></li>
+                        <li><a>Messenger</a></li>
+                        <li><a>Facebook Lite</a></li>
+                        <li><a>Đăng ký</a></li>
+                        <li><a>Đăng nhập</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div><span> Facebook © 2020</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+
+</html>
