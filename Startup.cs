@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WebChat.Data;
+using WebChat.GeneralClass;
 
 namespace WebChat
 {
@@ -26,10 +27,15 @@ namespace WebChat
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDistributedMemoryCache();
-            services.AddSession(option => {
-                option.Cookie.Name = "UserFacebook";
-                option.IdleTimeout = new TimeSpan(0, 60, 0);
+            services.AddSession(options => {
+                options.Cookie.Name = "UserFacebook";
+                options.IdleTimeout = new TimeSpan(0, 60, 0);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
             });
+            // Declare service for checking session
+            services.AddScoped<SessionCheck>();
+
             services.AddControllersWithViews();
             services.AddDbContext<WebChatContext>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
@@ -54,7 +60,9 @@ namespace WebChat
             app.UseRouting();
 
             app.UseAuthorization();
+            // Call UseSession After UseRouting
             app.UseSession();
+            // Call UseSession Before UseEndpoints
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

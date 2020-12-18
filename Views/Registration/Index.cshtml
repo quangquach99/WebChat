@@ -29,10 +29,22 @@
                 </div>
                 <div class="col-md-6">
                     <section class="login-form-wrap">
+                        @if (ViewData["NonExistedEmail"] != null)
+                        {
+                            <span class="alert-danger p-3">
+                                @Html.Raw(ViewData["NonExistedEmail"].ToString())
+                            </span>
+                        }
+                        @if (ViewData["WrongPassword"] != null)
+                        {
+                            <span class="alert-danger p-3">
+                                @Html.Raw(ViewData["WrongPassword"].ToString())
+                            </span>
+                        }
                         @if (TempData["success"] != null)
                         {
                             <span class="alert-success p-3">
-                                @Html.Raw(@TempData["success"].ToString())
+                                @Html.Raw(TempData["success"].ToString())
                             </span>
                         }
                         @if (ViewData["existedEmail"] != null)
@@ -43,14 +55,14 @@
                         }
                         @using (Html.BeginForm("Login", "Registration", FormMethod.Post, new { @class = "login-form" }))
                         {
-                    <label>
-                        @Html.TextBoxFor(m => m.Email, new { @type = "email", @placeholder = "Email", @autofocus = "autofocus" })
-                        <span asp-validation-for="Email"></span>
-                    </label>
-                    <label>
-                        @Html.TextBoxFor(m => m.Password, new { @type = "password", @placeholder = "Password" })
-                        <span asp-validation-for="Password"></span>
-                    </label>
+                            <label>
+                                @Html.TextBoxFor(m => m.Email, new { @type = "email", @placeholder = "Email", @autofocus = "autofocus" })
+                                <span asp-validation-for="Email"></span>
+                            </label>
+                            <label>
+                                @Html.TextBoxFor(m => m.Password, new { @type = "password", @placeholder = "Password" })
+                                <span asp-validation-for="Password"></span>
+                            </label>
                             <input style="border-radius: 9px;width: 80%;" class="btn-primary p-2" type="submit" value="Login" id="Login">
                         }
 

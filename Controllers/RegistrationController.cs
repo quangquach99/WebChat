@@ -16,9 +16,12 @@ namespace WebChat.Controllers
         {
             _context = context;
         }
-
         public IActionResult Index()
         {
+            if (HttpContext.Session.GetString("userId") != null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
 
@@ -33,19 +36,21 @@ namespace WebChat.Controllers
                     if (hash.MD5Hash(user.Password) == objAccount.Password)
                     {
                         HttpContext.Session.SetString("userFullname", objAccount.FullName.ToString());
-                        HttpContext.Session.SetString("userEmail", user.Email.ToString());
+                        HttpContext.Session.SetString("userEmail", objAccount.Email.ToString());
                         HttpContext.Session.SetInt32("userId", objAccount.ID);
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Messenger");
                     }
                     else
                     {
-                    // Alert Wrong Password
+                        // Alert Wrong Password
+                        ViewData["WrongPassword"] = "Incorrect Password!";
                         return View("Index",user);
                     }
                 }
                 else
                 {
                     // Alert Account Does Not Exist
+                    ViewData["NonExistedEmail"] = "Non-Existed Email! Please Sign Up!";
                     return View("Index",user);
                 } 
         }
