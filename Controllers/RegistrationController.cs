@@ -32,16 +32,20 @@ namespace WebChat.Controllers
                     CEncryptor hash = new CEncryptor();
                     if (hash.MD5Hash(user.Password) == objAccount.Password)
                     {
-                        HttpContext.Session.SetString(user.Email.ToString(), user.Password.ToString());
+                        HttpContext.Session.SetString("userFullname", objAccount.FullName.ToString());
+                        HttpContext.Session.SetString("userEmail", user.Email.ToString());
+                        HttpContext.Session.SetInt32("userId", objAccount.ID);
                         return RedirectToAction("Index", "Home");
                     }
                     else
                     {
+                    // Alert Wrong Password
                         return View("Index",user);
                     }
                 }
                 else
                 {
+                    // Alert Account Does Not Exist
                     return View("Index",user);
                 } 
         }
