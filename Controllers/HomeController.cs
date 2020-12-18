@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using WebChat.Models;
@@ -19,7 +20,12 @@ namespace WebChat.Controllers
         }
 
         public IActionResult Index()
-        {
+        {  
+            string cookie = Request.Cookies["MarryWinchester@gmail.com"];
+            if(cookie != null)
+            {
+                string ses = HttpContext.Session.GetString("MarryWinchester@gmail.com");
+            }           
             return View();
         }
 

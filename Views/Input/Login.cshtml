@@ -3,10 +3,12 @@
 @using (Html.BeginForm("Login", "Input", FormMethod.Post, new { @class = "login-form" }))
 {
     <label>
-        @Html.TextBoxFor(m => m.UserEmail, new { @type = "email", @placeholder = "Email or phone number", @required = "required", @autofocus = "autofocus" })
+        @Html.TextBoxFor(m => m.UserEmail, new { @type = "email", @placeholder = "Email or phone number", @autofocus = "autofocus" })
+        <span asp-validation-for="UserEmail"></span>
     </label>
     <label>
-        @Html.TextBoxFor(m => m.UserPassword, new { @type = "password", @placeholder = "Password", @required = "required" })
+        @Html.TextBoxFor(m => m.UserPassword, new { @type = "password", @placeholder = "Password"})
+        <span asp-validation-for="UserPassword"></span>
     </label>
     <input type="submit" value="Login" id="Login">
 }
