@@ -44,7 +44,7 @@
                         @using (Html.BeginForm("Login", "Registration", FormMethod.Post, new { @class = "login-form" }))
                         {
                             <label>
-                                @Html.TextBoxFor(m => m.Email, new { @type = "email", @placeholder = "Email or phone number", @required = "required", @autofocus = "autofocus" })
+                                @Html.TextBoxFor(m => m.Email, new { @type = "email", @placeholder = "Email", @required = "required", @autofocus = "autofocus" })
                             </label>
                             <label>
                                 @Html.TextBoxFor(m => m.Password, new { @type = "password", @placeholder = "Password", @required = "required" })
@@ -102,11 +102,11 @@
                                                             {
                                                                 if (DateTime.Now.Day == i)
                                                                 {
-                                                                    <option value="@i" selected>@i</option>
+                                                                    <option value="@i" selected>Ngày @i</option>
                                                                 }
                                                                 else
                                                                 {
-                                                                    <option value="@i">@i</option>
+                                                                    <option value="@i">Ngày @i</option>
                                                                 }
                                                             }
                                                         </select>
@@ -132,11 +132,11 @@
                                                             {
                                                                 if (i == DateTime.Now.Year)
                                                                 {
-                                                                    <option value="@i" selected>@i</option>
+                                                                    <option value="@i" selected>Năm @i</option>
                                                                 }
                                                                 else
                                                                 {
-                                                                    <option value="@i">@i</option>
+                                                                    <option value="@i">Năm @i</option>
                                                                 }
                                                             }
                                                         </select>

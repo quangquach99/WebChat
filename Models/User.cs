@@ -29,11 +29,12 @@ namespace WebChat.Models
             }
         }
 
-        [DataType(DataType.PhoneNumber), Required]
+        [DataType(DataType.PhoneNumber)]
         [RegularExpression(@"^(\d{10})$", ErrorMessage = "Wrong mobile")]
         public string PhoneNumber { get; set; }
 
         [DataType(DataType.EmailAddress, ErrorMessage = "E-mail is not valid")]
+        [Required]
         public string Email { get; set; }
 
         [RegularExpression(@"^[a-zA-Z0-9]{8,32}$", ErrorMessage = "8 to 32 characters, alphabets and numbers only")]
