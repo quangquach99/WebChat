@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebChat.GeneralClass;
@@ -18,6 +20,30 @@ namespace WebChat.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Login([Bind("Email,Password")] User user)
+        {
+                User objAccount =  _context.Users.FirstOrDefault(ac => ac.Email == user.Email);
+                if(objAccount != null)
+                {
+                    CEncryptor hash = new CEncryptor();
+                    if (hash.MD5Hash(user.Password) == objAccount.Password)
+                    {
+                        HttpContext.Session.SetString(user.Email.ToString(), user.Password.ToString());
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        return View("Index",user);
+                    }
+                }
+                else
+                {
+                    return View("Index",user);
+                } 
         }
 
         [HttpPost]
