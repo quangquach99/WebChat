@@ -65,7 +65,7 @@
                             <input type="text" name="search" id="search" placeholder="Search">
                             <div id="searchResults">
                                 <div class="searchResult">
-                                    <img src="~/images/daiduong.png" alt="avatar">
+                                    <img src="./images/daiduong.png" alt="avatar">
                                     <span class="conversationName">Ngô Đại Dương</span>
                                     <a href="#">
                                         <i class="fas fa-user-circle"></i>
@@ -75,14 +75,14 @@
                                     </a>
                                 </div>
                                 <div class="searchResult">
-                                    <img src="~/images/groupImg.png" alt="avatar">
+                                    <img src="./images/groupImg.png" alt="avatar">
                                     <span class="conversationName">Group 1</span>
                                     <a href="#">
                                         <i class="fab fa-facebook-messenger"></i>
                                     </a>
                                 </div>
                                 <div class="searchResult">
-                                    <img src="~/images/kimhuy.jpg" alt="avatar">
+                                    <img src="./images/kimhuy.jpg" alt="avatar">
                                     <span class="conversationName">Nguyễn Kim Huy</span>
                                     <a href="#">
                                         <i class="fas fa-user-circle"></i>
@@ -92,7 +92,7 @@
                                     </a>
                                 </div>
                                 <div class="searchResult">
-                                    <img src="~/images/daiduong.png" alt="avatar">
+                                    <img src="./images/daiduong.png" alt="avatar">
                                     <span class="conversationName">Ngô Đại Dương</span>
                                     <a href="#">
                                         <i class="fas fa-user-circle"></i>
@@ -102,14 +102,14 @@
                                     </a>
                                 </div>
                                 <div class="searchResult">
-                                    <img src="~/images/groupImg.png" alt="avatar">
+                                    <img src="./images/groupImg.png" alt="avatar">
                                     <span class="conversationName">Group 1</span>
                                     <a href="#">
                                         <i class="fab fa-facebook-messenger"></i>
                                     </a>
                                 </div>
                                 <div class="searchResult">
-                                    <img src="~/images/kimhuy.jpg" alt="avatar">
+                                    <img src="./images/kimhuy.jpg" alt="avatar">
                                     <span class="conversationName">Nguyễn Kim Huy</span>
                                     <a href="#">
                                         <i class="fas fa-user-circle"></i>
@@ -124,48 +124,60 @@
                     </div>
                     <div class="row">
                         <ul id="conversationList">
-                            <li class="conversation new">
-                                <img src="~/images/duykhanh.png" alt="avatar" />
-                                <span class="username">Vũ Duy Khánh</span>
-                                <span class="time">2:09 PM</span>
-                                <span class="preview">I was wondering...</span>
-                            </li>
-                            <li class="conversation">
-                                <img src="~/images/daiduong.png" alt="avatar" />
-                                <span class="username">Ngô Đại Dương</span>
-                                <span class="time">2:09 PM</span>
-                                <span class="preview">I was wondering...</span>
-                            </li>
-                            <li class="conversation active">
-                                <img src="~/images/kimhuy.jpg" alt="avatar" />
-                                <span class="username">Nguyễn Kim Huy</span>
-                                <span class="time">2:09 PM</span>
-                                <span class="preview">I was wondering...</span>
-                            </li>
-                            <li class="conversation">
-                                <img src="~/images/tung.jpg" alt="avatar" />
-                                <span class="username">Nguyễn Thanh Tùng</span>
-                                <span class="time">2:09 PM</span>
-                                <span class="preview">I was wondering...</span>
-                            </li>
-                            <li class="conversation">
-                                <img src="~/images/hao.jpg" alt="avatar" />
-                                <span class="username">Nguyễn Văn Hào</span>
-                                <span class="time">2:09 PM</span>
-                                <span class="preview">I was wondering...</span>
-                            </li>
-                            <li class="conversation">
-                                <img src="~/images/duc.jpg" alt="avatar" />
-                                <span class="username">Nguyễn Đức</span>
-                                <span class="time">2:09 PM</span>
-                                <span class="preview">I was wondering...</span>
-                            </li>
-                            <li class="conversation">
-                                <img src="~/images/duc.jpg" alt="avatar" />
-                                <span class="username">Nguyễn Đức</span>
-                                <span class="time">2:09 PM</span>
-                                <span class="preview">I was wondering...</span>
-                            </li>
+                            @*@foreach (var userConversation in Model.UserConversations)
+                            {
+                                if (userConversation.UserID != Model.ID)
+                                {
+                                    <li class="conversation new">
+                                        <img src="./images/@Html.DisplayFor(image => userConversation.User.Profile.UserAvatar)" alt="avatar" />
+                                        <span class="username">@Html.DisplayFor(fullname => userConversation.User.FullName)</span>
+                                        <span class="time">2:09 PM</span>
+                                        <span class="preview">I was wondering...</span>
+                                    </li>
+                                }
+                            }*@
+                            @*<li class="conversation new">
+            <img src="./images/duykhanh.png" alt="avatar" />
+            <span class="username">Vũ Duy Khánh</span>
+            <span class="time">2:09 PM</span>
+            <span class="preview">I was wondering...</span>
+        </li>
+        <li class="conversation">
+            <img src="./images/daiduong.png" alt="avatar" />
+            <span class="username">Ngô Đại Dương</span>
+            <span class="time">2:09 PM</span>
+            <span class="preview">I was wondering...</span>
+        </li>
+        <li class="conversation active">
+            <img src="./images/kimhuy.jpg" alt="avatar" />
+            <span class="username">Nguyễn Kim Huy</span>
+            <span class="time">2:09 PM</span>
+            <span class="preview">I was wondering...</span>
+        </li>
+        <li class="conversation">
+            <img src="./images/tung.jpg" alt="avatar" />
+            <span class="username">Nguyễn Thanh Tùng</span>
+            <span class="time">2:09 PM</span>
+            <span class="preview">I was wondering...</span>
+        </li>
+        <li class="conversation">
+            <img src="./images/hao.jpg" alt="avatar" />
+            <span class="username">Nguyễn Văn Hào</span>
+            <span class="time">2:09 PM</span>
+            <span class="preview">I was wondering...</span>
+        </li>
+        <li class="conversation">
+            <img src="./images/duc.jpg" alt="avatar" />
+            <span class="username">Nguyễn Đức</span>
+            <span class="time">2:09 PM</span>
+            <span class="preview">I was wondering...</span>
+        </li>
+        <li class="conversation">
+            <img src="./images/duc.jpg" alt="avatar" />
+            <span class="username">Nguyễn Đức</span>
+            <span class="time">2:09 PM</span>
+            <span class="preview">I was wondering...</span>
+        </li>*@
                         </ul>
                     </div>
                 </div>
@@ -177,7 +189,7 @@
                     <div class="row" id="messages">
                         <div class="messageRow left-message">
                             <a href="#">
-                                <img src="~/images/kimhuy.jpg" alt="avatar">
+                                <img src="./images/kimhuy.jpg" alt="avatar">
                             </a>
                             <div class="message">
                                 <p>Oh Come one!!!</p>
@@ -202,7 +214,7 @@
                         </div>
                         <div class="messageRow left-message">
                             <a href="#">
-                                <img src="~/images/kimhuy.jpg" alt="avatar">
+                                <img src="./images/kimhuy.jpg" alt="avatar">
                             </a>
                             <div class="message">
                                 <p>Oh Come one!!!</p>
@@ -246,11 +258,68 @@
         </div>
     </div>
 
+    <!-- Blur For Create Conversation -->
+    <div id="blurForCreate"></div>
+    <!-- Create Conversation -->
+    <div id="createConversationBox">
+        <span id="closeCreateConversationBox"><i class="fas fa-times"></i></span>
+        <div id="conversationOptions">
+            <div id="singleConversation">New Conversation</div>
+            <div id="groupConversation">New Group</div>
+            <div id="singleConversationSearch">
+                <input type="text" name="searchUser" id="searchUser" placeholder="Search User...">
+                <div id="searchUserResults">
+                    <div class="searchUserResult">
+                        <div class="searchResult">
+                            <img src="./images/daiduong.png" alt="avatar">
+                            <span class="conversationName">Ngô Đại Dương</span>
+                            <a href="#">
+                                <i class="fas fa-user-circle"></i>
+                            </a>
+                            <a class="getUserId" href="2">
+                                <i class="fab fa-facebook-messenger"></i>
+                            </a>
+                        </div>
+                        <div class="searchResult">
+                            <img src="./images/kimhuy.jpg" alt="avatar">
+                            <span class="conversationName">Nguyễn Kim Huy</span>
+                            <a href="#">
+                                <i class="fas fa-user-circle"></i>
+                            </a>
+                            <a class="getUserId" href="4">
+                                <i class="fab fa-facebook-messenger"></i>
+                            </a>
+                        </div>
+                        <div class="searchResult">
+                            <img src="./images/daiduong.png" alt="avatar">
+                            <span class="conversationName">Ngô Đại Dương</span>
+                            <a href="#">
+                                <i class="fas fa-user-circle"></i>
+                            </a>
+                            <a class="getUserId" href="2">
+                                <i class="fab fa-facebook-messenger"></i>
+                            </a>
+                        </div>
+                        <div class="searchResult">
+                            <img src="./images/kimhuy.jpg" alt="avatar">
+                            <span class="conversationName">Nguyễn Kim Huy</span>
+                            <a href="#">
+                                <i class="fas fa-user-circle"></i>
+                            </a>
+                            <a class="getUserId" href="6">
+                                <i class="fab fa-facebook-messenger"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Optional JavaScript -->
     <script src="~/js/chatFrameScript.js"></script>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.js" crossorigin="anonymous">
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
             integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">

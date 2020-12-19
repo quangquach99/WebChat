@@ -5,6 +5,7 @@
     box-sizing: border-box;
     font-family: "Source Sans Pro", sans-serif;
 }
+
 p {
     -ms-word-break: break-all;
     word-break: break-all;
@@ -18,21 +19,26 @@ p {
     position: fixed;
     z-index: 99;
 }
+
 #logo {
     float: left;
     margin-left: 14px;
 }
-#logo img {
-    height: 40px;
-    margin: 5px auto;
-}
+
+    #logo img {
+        height: 40px;
+        margin: 5px auto;
+    }
+
 #actions {
     float: right;
     position: relative;
 }
+
 #profileImage, #logoutAction {
     display: inline-block;
 }
+
 #profileImage {
     padding: 5px 14px 4px 5px;
     border-radius: 22px;
@@ -40,39 +46,45 @@ p {
     margin: 4px auto;
     margin-right: 54px;
 }
-#profileImage a {
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 14px;
-    transition: .2s;
-    color: black;
-}
-#profileImage img:hover #profileImage a {
-    color: #00b0ff;
-}
-#profileImage a:hover {
-    color: #00b0ff;
-}
-/* 4 + 4 + 32 + 5 + 5 = 50 */
-#profileImage img {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    object-fit: cover;
-}
+
+    #profileImage a {
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 14px;
+        transition: .2s;
+        color: black;
+    }
+
+    #profileImage img:hover #profileImage a {
+        color: #00b0ff;
+    }
+
+    #profileImage a:hover {
+        color: #00b0ff;
+    }
+    /* 4 + 4 + 32 + 5 + 5 = 50 */
+    #profileImage img {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
 #logoutAction {
     position: absolute;
     top: 12px;
     right: 14px;
 }
-#logoutAction a i {
-    color: white;
-    font-size: 25px;
-    transition: .3s;
-}
-#logoutAction a:hover i {
-    color: black;
-}
+
+    #logoutAction a i {
+        color: white;
+        font-size: 25px;
+        transition: .3s;
+    }
+
+    #logoutAction a:hover i {
+        color: black;
+    }
 
 /* Chat Frame */
 #content {
@@ -83,6 +95,7 @@ p {
     min-height: 100vh;
     z-index: 8;
 }
+
 #blurCover {
     position: absolute;
     width: 100%;
@@ -91,6 +104,7 @@ p {
     opacity: .6;
     z-index: 9;
 }
+
 #chatFrame {
     background-color: #fff;
     height: 600px;
@@ -106,15 +120,18 @@ p {
     background-color: #fff;
     border-right: 1px solid #e6e6e6;
 }
+
 #searchAndCreate {
     width: 100%;
     margin: 28px 0;
 }
+
 #searchAction {
     width: 82%;
     height: auto;
     position: relative;
 }
+
 #searchResults {
     display: none;
     position: absolute;
@@ -127,19 +144,22 @@ p {
     overflow: auto;
     z-index: 99;
 }
+
 .searchResult {
     width: 100%;
     height: 50px;
     border-bottom: 1px solid #e6e6e6;
 }
-.searchResult img {
-    width: 34px;
-    height: 34px;
-    margin: 8px 0px 8px 9px;
-    border-radius: 50%;
-    object-fit: cover;
-    float: left;
-}
+
+    .searchResult img {
+        width: 34px;
+        height: 34px;
+        margin: 8px 0px 8px 9px;
+        border-radius: 50%;
+        object-fit: cover;
+        float: left;
+    }
+
 .conversationName {
     font-size: 14px;
     font-weight: bold;
@@ -147,6 +167,7 @@ p {
     float: left;
     line-height: 50px;
 }
+
 .searchResult a {
     color: #00b0ff;
     font-size: 22px;
@@ -156,9 +177,11 @@ p {
     transition: .4s;
     float: right;
 }
-.searchResult a:hover {
-    color: blue;
-}
+
+    .searchResult a:hover {
+        color: blue;
+    }
+
 #search {
     width: 100%;
     height: 42px;
@@ -170,6 +193,7 @@ p {
     border: 1px solid #e6e6e6;
     outline: none;
 }
+
 #createConversation {
     width: 42px;
     height: 42px;
@@ -183,14 +207,17 @@ p {
     border-radius: 50%;
     cursor: pointer;
 }
+
 #conversationBox {
     overflow-y: auto;
 }
+
 #conversationList {
     width: 100%;
     margin: 0;
     padding: 0;
 }
+
 .conversation {
     width: 100%;
     list-style-type: none;
@@ -202,14 +229,17 @@ p {
     position: relative;
     transition: .2s;
 }
+
 #conversationList .active {
     background-color: #00b0ff;
 }
-#conversationList .active .username,
-#conversationList .active .time,
-#conversationList .active .preview {
-    color: #e6e6e6 !important;
-}
+
+    #conversationList .active .username,
+    #conversationList .active .time,
+    #conversationList .active .preview {
+        color: #e6e6e6 !important;
+    }
+
 .conversation img {
     float: left;
     width: 45px;
@@ -217,12 +247,14 @@ p {
     border-radius: 50%;
     object-fit: cover;
 }
+
 .username {
     font-size: 15px;
     font-weight: bold;
     display: block;
     color: black;
 }
+
 .time {
     position: absolute;
     top: 10px;
@@ -230,23 +262,28 @@ p {
     color: grey;
     font-size: 15px;
 }
+
 .preview {
     font-size: 15px;
     color: grey;
 }
+
 .username, .preview {
     width: 80%;
     margin-left: 10px;
     float: left;
 }
+
 .conversation:hover {
     background-color: #00b0ff;
 }
-.conversation:hover .username,
-.conversation:hover .time,
-.conversation:hover .preview {
-    color: white;
-}
+
+    .conversation:hover .username,
+    .conversation:hover .time,
+    .conversation:hover .preview {
+        color: white;
+    }
+
 #conversationList .new .preview {
     color: black;
     font-weight: 600;
@@ -257,23 +294,27 @@ p {
     padding: 0;
     position: relative;
 }
+
 #sendTo {
     height: 50px;
     width: 100%;
-    background-color:#eceff1;
+    background-color: #eceff1;
     border-bottom: 1px solid #e0e0e0;
     margin: 0;
 }
-#sendTo p {
-    line-height: 50px;
-    margin: 0;
-    color: grey;
-    font-size: 14px;
-}
-#sendTo p span {
-    color: #000;
-    font-weight: bold;
-}
+
+    #sendTo p {
+        line-height: 50px;
+        margin: 0;
+        color: grey;
+        font-size: 14px;
+    }
+
+        #sendTo p span {
+            color: #000;
+            font-weight: bold;
+        }
+
 #messages {
     height: 550px;
     width: 100%;
@@ -282,6 +323,7 @@ p {
     padding: 9px 7px 50px 7px;
     position: relative;
 }
+
 .messageRow {
     width: 100%;
     height: auto;
@@ -290,37 +332,44 @@ p {
     padding: 0;
     position: relative;
 }
-.messageRow a {
-    position: absolute;
-    margin: 0;
-    padding: 0;
-    bottom: 0;
-    left: 0;
-}
-.messageRow a img {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    float: left;
-}
+
+    .messageRow a {
+        position: absolute;
+        margin: 0;
+        padding: 0;
+        bottom: 0;
+        left: 0;
+    }
+
+        .messageRow a img {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            float: left;
+        }
+
 .left-message .message {
     float: left;
     margin-left: 26px;
 }
+
 .left-message p {
     float: left;
     background-color: #00b0ff;
     color: #fff;
 }
+
 .right-message .message {
     float: right;
     margin-right: 9px;
 }
+
 .right-message p {
     float: right;
     background-color: #eceff1;
     color: black;
 }
+
 .message p {
     display: block;
     margin: 0;
@@ -337,6 +386,7 @@ p {
     right: 20px;
     width: 64.66%;
 }
+
 #sendInput {
     background-color: #eceff1;
     width: 100%;
@@ -345,7 +395,9 @@ p {
     margin: 0;
     padding: 9px 17px;
     font-size: 15px;
+    outline: none;
 }
+
 .input-group-text {
     position: absolute;
     right: 9px;
@@ -361,25 +413,119 @@ p {
 #seenM {
     /* display: block; */
     /* position: relative; */
-    float:  right;
+    float: right;
 }
-#seenM ul {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    /* top: 77px; */
-    display: block;
-    /* bottom: -98px; */
-    /* bottom: -23px; */
-    /* z-index: 999; */
-}
+
+    #seenM ul {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        /* top: 77px; */
+        display: block;
+        /* bottom: -98px; */
+        /* bottom: -23px; */
+        /* z-index: 999; */
+    }
+
 #seenPeople li {
     list-style-type: none;
     display: inline-block;
 }
+
 .seenPeople {
     width: 14px;
     height: 14px;
     border-radius: 50%;
     object-fit: cover;
+}
+
+/* Create New Conversation */
+/* Blur Effect */
+#blurForCreate {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 100;
+    background-color: black;
+    opacity: .8;
+}
+
+#createConversationBox {
+    display: none;
+    background-color: #00b0ff;
+    border: 1px solid #e6e6e6;
+    margin: 0;
+    padding: 24px 0;
+    max-height: 600px;
+    overflow: auto;
+    width: 40%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 999;
+    transform: translate(-50%,-50%);
+    text-align: center;
+}
+
+#closeCreateConversationBox {
+    position: absolute;
+    top: 1px;
+    right: 14px;
+    color: white;
+    font-size: 34px;
+    cursor: pointer;
+}
+
+#singleConversation, #groupConversation {
+    cursor: pointer;
+    background-color: white;
+    display: inline-block;
+    padding: 9px 11px;
+    color: black;
+    font-weight: bold;
+    font-size: 14px;
+    border-radius: 44px;
+    outline: none;
+    margin: 0 7px;
+    transition: .2s;
+}
+
+    #singleConversation:hover {
+        background-color: lightgreen;
+        box-shadow: 0 0 7px 1px white;
+        color: white;
+    }
+
+    #groupConversation:hover {
+        background-color: red;
+        box-shadow: 0 0 7px 1px white;
+        color: white;
+    }
+
+#searchUser {
+    display: none;
+    width: 60%;
+    margin: 14px auto;
+    height: 34px;
+    font-size: 14px;
+    border-radius: 44px;
+    transition: .3s;
+    padding: 4px 14px;
+}
+
+#searchUserResults {
+    /*     display: none; */
+}
+
+#searchUser:focus {
+    box-shadow: 0 0 7px 1px white;
+    outline: none;
+    padding: 4px 24px;
+}
+
+.searchUserResult {
+    background-color: white;
 }
