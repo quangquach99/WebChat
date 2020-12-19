@@ -1,5 +1,263 @@
-﻿@{ 
+﻿@model WebChat.Models.User
+@{
     Layout = null;
 }
 
-<h1>Damn!!!</h1>
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <title>WebChat</title>
+    <link rel="icon" href="~/images/logo.png" type="image/x-icon">
+    <!-- Font Awesome -->
+    <link href="~/css/fontawesome/css/fontawesome.css" rel="stylesheet">
+    <link href="~/css/fontawesome/css/brands.css" rel="stylesheet">
+    <link href="~/css/fontawesome/css/solid.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600" rel="stylesheet">
+    <!-- My Style -->
+    <link rel="stylesheet" href="~/css/style.css">
+</head>
+
+<body>
+    <!-- NAVIGATION BAR -->
+    <div id="navigationBar">
+        <div id="logo">
+            <a asp-controller="Home" asp-action="Index">
+                <img src="~/images/logo.png" alt="logo">
+            </a>
+        </div>
+        <div id="actions">
+            <div id="profileImage">
+                <a href="~/profile.html">
+                    <img src="~/images/@Html.DisplayFor(model => model.Profile.UserAvatar)" alt="avatar">
+                    @Html.DisplayFor(model => model.FirstName)
+                </a>
+            </div>
+            <div id="logoutAction">
+                <a href="~/logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- CHAT FRAME -->
+    <div id="content">
+        <div id="blurCover"></div>
+        <div id="chatFrame" class="container">
+            <div class="row">
+                <!-- Conversation Box -->
+                <div class="col-lg-4" id="conversationBox">
+                    <div id="searchAndCreate" class="row">
+                        <div id="searchAction">
+                            <input type="text" name="search" id="search" placeholder="Search">
+                            <div id="searchResults">
+                                <div class="searchResult">
+                                    <img src="~/images/daiduong.png" alt="avatar">
+                                    <span class="conversationName">Ngô Đại Dương</span>
+                                    <a href="#">
+                                        <i class="fas fa-user-circle"></i>
+                                    </a>
+                                    <a href="#">
+                                        <i class="fab fa-facebook-messenger"></i>
+                                    </a>
+                                </div>
+                                <div class="searchResult">
+                                    <img src="~/images/groupImg.png" alt="avatar">
+                                    <span class="conversationName">Group 1</span>
+                                    <a href="#">
+                                        <i class="fab fa-facebook-messenger"></i>
+                                    </a>
+                                </div>
+                                <div class="searchResult">
+                                    <img src="~/images/kimhuy.jpg" alt="avatar">
+                                    <span class="conversationName">Nguyễn Kim Huy</span>
+                                    <a href="#">
+                                        <i class="fas fa-user-circle"></i>
+                                    </a>
+                                    <a href="#">
+                                        <i class="fab fa-facebook-messenger"></i>
+                                    </a>
+                                </div>
+                                <div class="searchResult">
+                                    <img src="~/images/daiduong.png" alt="avatar">
+                                    <span class="conversationName">Ngô Đại Dương</span>
+                                    <a href="#">
+                                        <i class="fas fa-user-circle"></i>
+                                    </a>
+                                    <a href="#">
+                                        <i class="fab fa-facebook-messenger"></i>
+                                    </a>
+                                </div>
+                                <div class="searchResult">
+                                    <img src="~/images/groupImg.png" alt="avatar">
+                                    <span class="conversationName">Group 1</span>
+                                    <a href="#">
+                                        <i class="fab fa-facebook-messenger"></i>
+                                    </a>
+                                </div>
+                                <div class="searchResult">
+                                    <img src="~/images/kimhuy.jpg" alt="avatar">
+                                    <span class="conversationName">Nguyễn Kim Huy</span>
+                                    <a href="#">
+                                        <i class="fas fa-user-circle"></i>
+                                    </a>
+                                    <a href="#">
+                                        <i class="fab fa-facebook-messenger"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <a id="createConversation"></a>
+                    </div>
+                    <div class="row">
+                        <ul id="conversationList">
+                            <li class="conversation new">
+                                <img src="~/images/duykhanh.png" alt="avatar" />
+                                <span class="username">Vũ Duy Khánh</span>
+                                <span class="time">2:09 PM</span>
+                                <span class="preview">I was wondering...</span>
+                            </li>
+                            <li class="conversation">
+                                <img src="~/images/daiduong.png" alt="avatar" />
+                                <span class="username">Ngô Đại Dương</span>
+                                <span class="time">2:09 PM</span>
+                                <span class="preview">I was wondering...</span>
+                            </li>
+                            <li class="conversation active">
+                                <img src="~/images/kimhuy.jpg" alt="avatar" />
+                                <span class="username">Nguyễn Kim Huy</span>
+                                <span class="time">2:09 PM</span>
+                                <span class="preview">I was wondering...</span>
+                            </li>
+                            <li class="conversation">
+                                <img src="~/images/tung.jpg" alt="avatar" />
+                                <span class="username">Nguyễn Thanh Tùng</span>
+                                <span class="time">2:09 PM</span>
+                                <span class="preview">I was wondering...</span>
+                            </li>
+                            <li class="conversation">
+                                <img src="~/images/hao.jpg" alt="avatar" />
+                                <span class="username">Nguyễn Văn Hào</span>
+                                <span class="time">2:09 PM</span>
+                                <span class="preview">I was wondering...</span>
+                            </li>
+                            <li class="conversation">
+                                <img src="~/images/duc.jpg" alt="avatar" />
+                                <span class="username">Nguyễn Đức</span>
+                                <span class="time">2:09 PM</span>
+                                <span class="preview">I was wondering...</span>
+                            </li>
+                            <li class="conversation">
+                                <img src="~/images/duc.jpg" alt="avatar" />
+                                <span class="username">Nguyễn Đức</span>
+                                <span class="time">2:09 PM</span>
+                                <span class="preview">I was wondering...</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Chat Box -->
+                <div class="col-lg-8" id="chatBox">
+                    <div class="row" id="sendTo">
+                        <p class="col-lg-12">To: <span>Nguyễn Kim Huy</span></p>
+                    </div>
+                    <div class="row" id="messages">
+                        <div class="messageRow left-message">
+                            <a href="#">
+                                <img src="~/images/kimhuy.jpg" alt="avatar">
+                            </a>
+                            <div class="message">
+                                <p>Oh Come one!!!</p>
+                                <br>
+                                <p>shiettttt</p>
+                                <br>
+                                <p>shiettttt</p>
+                                <br>
+                                <p>shiettttt</p>
+                            </div>
+                        </div>
+                        <div class="messageRow right-message">
+                            <div class="message">
+                                <p>Oh Come one!!!</p>
+                                <br>
+                                <p>shiettttt</p>
+                                <br>
+                                <p>shiettttt</p>
+                                <br>
+                                <p>shiettttt</p>
+                            </div>
+                        </div>
+                        <div class="messageRow left-message">
+                            <a href="#">
+                                <img src="~/images/kimhuy.jpg" alt="avatar">
+                            </a>
+                            <div class="message">
+                                <p>Oh Come one!!!</p>
+                                <br>
+                                <p>shiettttt</p>
+                                <br>
+                                <p>shiettttt</p>
+                                <br>
+                                <p>shiettttt</p>
+                            </div>
+                        </div>
+                        <div class="messageRow right-message">
+                            <div class="message">
+                                <p>Oh Come one!!!</p>
+                                <br>
+                                <p>shiettttt</p>
+                                <br>
+                                <p>shiettttt</p>
+                                <br>
+                                <p>shiettttt</p>
+                            </div>
+                        </div>
+                        <!-- Message Form Send -->
+                        <div class="row" id="sendMessage">
+                            <input type="text" id="sendInput" placeholder="Type a message...">
+                            <span class="input-group-text">
+                                <i class="fa fa-paper-plane"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <!-- <div class="row" id="sendMessage">
+                        <input type="text" id="sendInput" placeholder="Type a message...">
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-paper-plane"></i>
+                            </span>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <script src="~/js/chatFrameScript.js"></script>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+    </script>
+</body>
+
+</html>

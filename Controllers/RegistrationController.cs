@@ -60,18 +60,34 @@ namespace WebChat.Controllers
         public async Task<IActionResult> CreateAsync(
             [Bind("FirstName,LastName,PhoneNumber,Email,Password,DOB,Gender")] User user)
         {
+            // Check Errors
             if (ModelState.IsValid)
             {
+                // Check Existed Email
                 User existedEmail = await _context.Users.FirstOrDefaultAsync(e => e.Email == user.Email);
                 if(existedEmail != null)
                 {
                     ViewData["existedEmail"] = "This Email Has Been Taken!";
                     return View("Index", existedEmail);
                 }
+
+                // Encrypt Password Using MD5
                 CEncryptor hash = new CEncryptor();
                 user.Password = hash.MD5Hash(user.Password);
+
+                // Save User To Database
                 _context.Users.Add(user);
                 await _context.SaveChangesAsync();
+
+                // Get UserId Just Saved To Save Profile
+                var UserID = await _context.Users.FirstOrDefaultAsync(u => u.Email == user.Email);
+                Profile profile = new Profile();
+                profile.UserID = UserID.ID;
+                profile.UserAvatar = "defaultUser.png";
+                _context.Profiles.Add(profile);
+                await _context.SaveChangesAsync();
+
+                // Alert Success
                 TempData["success"] = "Created Successfully.";
                 return RedirectToAction("Index");
             }
