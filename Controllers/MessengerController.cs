@@ -9,7 +9,7 @@ namespace WebChat.Controllers
 {
     public class MessengerController : Controller
     {
-        //private readonly WebChat.Data.WebChatContext _context;
+        private readonly WebChat.Data.WebChatContext _context;
         [ServiceFilter(typeof(SessionCheck))]
         public IActionResult Index()
         {
