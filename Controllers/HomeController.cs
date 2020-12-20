@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using WebChat.GeneralClass;
@@ -20,7 +21,14 @@ namespace WebChat.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            if (HttpContext.Session.GetString("userId") == null)
+            {
+                return RedirectToAction("Index", "Registration");
+            }
+            else
+            {
+                return View();
+            }            
         }
 
         public IActionResult Privacy()

@@ -18,10 +18,10 @@ namespace WebChat.Controllers
         }
         public IActionResult Index()
         {
-            if (HttpContext.Session.GetString("userId") != null)
-            {
-                return RedirectToAction("Index", "Home");
-            }
+            //if (HttpContext.Session.GetString("userId") != null)
+            //{
+            //    return RedirectToAction("Index", "Home");
+            //}
             return View();
         }
 
@@ -38,7 +38,7 @@ namespace WebChat.Controllers
                         HttpContext.Session.SetString("userFullname", objAccount.FullName.ToString());
                         HttpContext.Session.SetString("userEmail", objAccount.Email.ToString());
                         HttpContext.Session.SetInt32("userId", objAccount.ID);
-                        return RedirectToAction("Index", "Messenger");
+                        return RedirectToAction("Index", "Home");
                     }
                     else
                     {
@@ -93,6 +93,14 @@ namespace WebChat.Controllers
             }
 
             return View("Index");
+        }
+
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Remove("userFullname"); 
+            HttpContext.Session.Remove("userEmail");
+            HttpContext.Session.Remove("userId");
+            return RedirectToAction("Index","Registration");
         }
     }
 }

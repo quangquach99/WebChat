@@ -1,0 +1,125 @@
+﻿.fb-search {
+    border-radius: 24px;
+}
+
+.fb-brand {
+    background-image: linear-gradient(#19aeff, #0164e1);
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+}
+
+    .fb-brand > i {
+        font-size: 30px;
+        margin-top: 4px;
+        color: white;
+        margin-left: 12px;
+    }
+
+.header {
+    width: 100%;
+    background-color: white;
+}
+
+.test {
+    width: 100%;
+}
+
+#SupportedContent {
+    margin-left: 345px;
+}
+
+.spContent {
+    padding: 0px 20px;
+}
+
+.spUser {
+    padding: 0px 15px;
+}
+
+.avataUser,
+.nameUser {
+    display: inline-block;
+}
+
+.avata-user {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+}
+
+.fb-body {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.fb-sidebar-left {
+    padding: 12px 100px 0px 0px;
+    width: 25%;
+}
+
+.sbl-list-group-item {
+    border: none;
+    padding: .75rem 1.25rem .75rem 0rem !important;
+}
+
+.list-SupportedContent > .list-group > a:hover {
+    border-radius: 1rem !important;
+}
+
+.item-list-SupportedContent > .icon-item,
+.item-list-SupportedContent > .text-item {
+    display: inline-block;
+    padding: 0px 10px;
+}
+
+.fb-sidebar-right {
+    padding: 12px 0px 0px 100px;
+    width: 25%;
+}
+
+.sbr-list-group-item {
+    border: none;
+    padding: .75rem 1.25rem .75rem 0rem !important;
+}
+
+
+/* css khung chat */
+
+.sbr-list-group-item {
+    border: none;
+    padding: .75rem 0rem .75rem 1.25rem !important;
+}
+
+.list-SupporChatFriend > .list-group > a {
+    border-radius: 1rem !important;
+}
+
+.avata-myfriend {
+    display: inline-block;
+    position: relative;
+}
+
+.name-myfriend {
+    display: inline-block;
+}
+
+.status-activate-myfriend {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background-color: green;
+    border-radius: 50%;
+    border: 1px solid white;
+    left: 20px;
+    bottom: 2px;
+}
+
+
+/* ket thuc css khung chat */
+
+.fb-sidebar-midle {
+    width: 45%;
+}

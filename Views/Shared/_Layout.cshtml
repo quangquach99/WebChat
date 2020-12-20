@@ -4,44 +4,278 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - WebChat</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/css/Home.css" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WebChat</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+    <section class="header">
+        <div class="container-fluid">
+            <div class="row">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light test">
+                    <a class="navbar-brand fb-brand" href="#"><i class="fab fa-facebook-f"></i></a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#SupportedContent" aria-controls="SupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#SupportedUser" aria-controls="SupportedUser" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <form class="form-inline">
+                        <input class="form-control mr-sm-2 fb-search" type="search" placeholder="Search on facebook" aria-label="Search">
+                    </form>
+                    <div class="collapse navbar-collapse" id="SupportedContent">
+                        <ul class="navbar-nav m-auto">
+                            <li class="nav-item spContent">
+                                <a class="nav-link" href="#"><i class="fas fa-home"></i></a>
+                            </li>
+                            <li class="nav-item spContent">
+                                <a class="nav-link" href="#"><i class="fas fa-tv"></i></a>
+                            </li>
+                            <li class="nav-item spContent">
+                                <a class="nav-link" href="#"><i class="fas fa-store"></i></a>
+                            </li>
+                            <li class="nav-item spContent">
+                                <a class="nav-link" href="#"><i class="fas fa-users"></i></a>
+                            </li>
+                            <li class="nav-item spContent">
+                                <a class="nav-link" href="#"><i class="fab fa-xbox"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="collapse navbar-collapse" id="SupportedUser">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item spUser">
+                                <a class="nav-link" href="#">
+                                    <div class="show-user">
+                                        <div class="avataUser">
+                                            <img class="avata-user" src="~/images/130578837_2455415874753395_2875305709627933570_n.jpg" alt="">
+                                        </div>
+                                        <div class="nameUser">
+                                            <span>Dương</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="nav-item spUser">
+                                <a class="nav-link" href="#"><i class="fas fa-plus"></i></a>
+                            </li>
+                            <li class="nav-item spUser">
+                                <a class="nav-link" href="#"><i class="fab fa-facebook-messenger"></i></a>
+                            </li>
+                            <li class="nav-item spUser">
+                                <a class="nav-link" href="#"><i class="fas fa-bell"></i></a>
+                            </li>
+                            <li class="nav-item dropdown spUser">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="#"><i class="fas fa-info-circle"></i></a>
+                                    <a class="dropdown-item" href="#"><i class="fas fa-cog"></i></a>
+                                    <a class="dropdown-item" href="#"><i class="fas fa-question-circle"></i></a>
+                                    <a class="dropdown-item" href="#"><i class="fas fa-moon"></i></a>
+                                    <a class="dropdown-item" href="@Url.Action("Logout", "Registration")"><i class="fas fa-sign-out-alt"></i></a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </section>
+    <div class="fb-body">
+        <div class="fb-sidebar-left">
+            <div class="list-SupportedContent">
+                <div class="list-group" id="list-tab" role="tablist">
+                    <a class="list-group-item list-group-item-action sbl-list-group-item" id="list-home-list" data-toggle="list" href="#" role="tab" aria-controls="home">
+                        <div class="item-list-SupportedContent">
+                            <div class="icon-item">
+                                <img class="avata-user" src="~/images/130578837_2455415874753395_2875305709627933570_n.jpg" alt="">
+                            </div>
+                            <div class="text-item">
+                                <div class="content-item">
+                                    Dương Ngô Đại
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a class="list-group-item list-group-item-action sbl-list-group-item" id="list-profile-list" data-toggle="list" href="#" role="tab" aria-controls="profile">
+                        <div class="item-list-SupportedContent">
+                            <div class="icon-item">
+                                <i class="fas fa-user-friends"></i>
+                            </div>
+                            <div class="text-item">
+                                <div class="content-item">
+                                    Bạn Bè
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a class="list-group-item list-group-item-action sbl-list-group-item" id="list-messages-list" data-toggle="list" href="#" role="tab" aria-controls="messages">
+                        <div class="item-list-SupportedContent">
+                            <div class="icon-item">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="text-item">
+                                <div class="content-item">
+                                    Nhóm
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a class="list-group-item list-group-item-action sbl-list-group-item" id="list-settings-list" data-toggle="list" href="#" role="tab" aria-controls="settings">
+                        <div class="item-list-SupportedContent">
+                            <div class="icon-item">
+                                <i class="fas fa-flag"></i>
+                            </div>
+                            <div class="text-item">
+                                <div class="content-item">
+                                    Trang
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a class="list-group-item list-group-item-action sbl-list-group-item" id="list-settings-list" data-toggle="list" href="#" role="tab" aria-controls="settings">
+                        <div class="item-list-SupportedContent">
+                            <div class="icon-item">
+                                <i class="fas fa-store"></i>
+                            </div>
+                            <div class="text-item">
+                                <div class="content-item">
+                                    Marketplace
+                                </div>
+                            </div>
+                        </div>
+                    </a>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2020 - WebChat - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <div class="fb-sidebar-midle">
+            @RenderBody()
+        </div>
+        <div class="fb-sidebar-right">
+            <div class="sbr-SupporDonors">
+                <div class="sbr-title">
+
+                </div>
+                <div class="sbr-list">
+
+                </div>
+            </div>
+            <div class="sbr-SupporChatFriend">
+                <div class="sbr-title">
+                    <h3>Người Liên Hệ</h3>
+                </div>
+                <div class="sbr-list">
+                    <div class="list-SupporChatFriend">
+                        <div class="list-group" id="list-tab" role="tablist">
+                            <a class="list-group-item list-group-item-action sbr-list-group-item" id="" data-toggle="" href="#" role="tab" aria-controls="">
+                                <div class="item-friend">
+                                    <div class="avata-myfriend">
+                                        <img class="avata-user" src="~/images/5186.png_860.png" alt="">
+                                        <div class="status-activate-myfriend">
+                                        </div>
+                                    </div>
+                                    <div class="name-myfriend">
+                                        <div class="text-name">
+                                            <span>Nguyễn Kim Huy</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            <a class="list-group-item list-group-item-action sbr-list-group-item" id="" data-toggle="" href="#" role="tab" aria-controls="">
+                                <div class="item-friend">
+                                    <div class="avata-myfriend">
+                                        <img class="avata-user" src="~/images/5186.png_860.png" alt="">
+                                        <div class="status-activate-myfriend">
+                                        </div>
+                                    </div>
+                                    <div class="name-myfriend">
+                                        <div class="text-name">
+                                            <span>Nguyễn Kim Huy</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            <a class="list-group-item list-group-item-action sbr-list-group-item" id="" data-toggle="" href="#" role="tab" aria-controls="">
+                                <div class="item-friend">
+                                    <div class="avata-myfriend">
+                                        <img class="avata-user" src="~/images/5186.png_860.png" alt="">
+                                        <div class="status-activate-myfriend">
+                                        </div>
+                                    </div>
+                                    <div class="name-myfriend">
+                                        <div class="text-name">
+                                            <span>Nguyễn Kim Huy</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            <a class="list-group-item list-group-item-action sbr-list-group-item" id="" data-toggle="" href="#" role="tab" aria-controls="">
+                                <div class="item-friend">
+                                    <div class="avata-myfriend">
+                                        <img class="avata-user" src="~/images/5186.png_860.png" alt="">
+                                        <div class="status-activate-myfriend">
+                                        </div>
+                                    </div>
+                                    <div class="name-myfriend">
+                                        <div class="text-name">
+                                            <span>Nguyễn Kim Huy</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            <a class="list-group-item list-group-item-action sbr-list-group-item" id="" data-toggle="" href="#" role="tab" aria-controls="">
+                                <div class="item-friend">
+                                    <div class="avata-myfriend">
+                                        <img class="avata-user" src="~/images/5186.png_860.png" alt="">
+                                        <div class="status-activate-myfriend">
+                                        </div>
+                                    </div>
+                                    <div class="name-myfriend">
+                                        <div class="text-name">
+                                            <span>Nguyễn Kim Huy</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            <a class="list-group-item list-group-item-action sbr-list-group-item" id="" data-toggle="" href="#" role="tab" aria-controls="">
+                                <div class="item-friend">
+                                    <div class="avata-myfriend">
+                                        <img class="avata-user" src="~/images/5186.png_860.png" alt="">
+                                        <div class="status-activate-myfriend">
+                                        </div>
+                                    </div>
+                                    <div class="name-myfriend">
+                                        <div class="text-name">
+                                            <span>Nguyễn Kim Huy</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            <a class="list-group-item list-group-item-action sbr-list-group-item" id="" data-toggle="" href="#" role="tab" aria-controls="">
+                                <div class="item-friend">
+                                    <div class="avata-myfriend">
+                                        <img class="avata-user" src="~/images/5186.png_860.png" alt="">
+                                        <div class="status-activate-myfriend">
+                                        </div>
+                                    </div>
+                                    <div class="name-myfriend">
+                                        <div class="text-name">
+                                            <span>Nguyễn Kim Huy</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>
