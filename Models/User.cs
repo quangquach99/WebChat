@@ -53,7 +53,6 @@ namespace WebChat.Models
             }
         }
         public Profile Profile { get; set; }
-        public Sender Sender { get; set; }
         public ICollection<UserConversation> UserConversations { get; set; }
     }
 }

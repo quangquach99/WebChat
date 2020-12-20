@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebChat.Data;
 
 namespace WebChat.Migrations
 {
     [DbContext(typeof(WebChatContext))]
-    partial class WebChatContextModelSnapshot : ModelSnapshot
+    [Migration("20201220030450_updateDatabaseDesign")]
+    partial class updateDatabaseDesign
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -38,7 +38,7 @@ namespace WebChat.Controllers
                         HttpContext.Session.SetString("userFullname", objAccount.FullName.ToString());
                         HttpContext.Session.SetString("userEmail", objAccount.Email.ToString());
                         HttpContext.Session.SetInt32("userId", objAccount.ID);
-                        return RedirectToAction("Index", "Messenger");
+                        return RedirectToAction("Index", "Home");
                     }
                     else
                     {
