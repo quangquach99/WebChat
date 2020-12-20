@@ -11,6 +11,5 @@ namespace WebChat.Models
         public int ConversationType { get; set; }
         public DateTime CreatedDate { get; set; }
         public ICollection<UserConversation> UserConversations { get; set; }
-        public ICollection<MessageConversation> MessageConversations { get; set; }
     }
 }

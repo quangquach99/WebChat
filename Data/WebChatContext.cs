@@ -14,8 +14,6 @@ namespace WebChat.Data
         public DbSet<Conversation> Conversations { get; set; }
         public DbSet<UserConversation> UserConversations { get; set; }
         public DbSet<Message> Messages { get; set; }
-        public DbSet<Sender> Senders { get; set; }
-        public DbSet<MessageConversation> MessageConversations { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -24,8 +22,6 @@ namespace WebChat.Data
             modelBuilder.Entity<Conversation>().ToTable("Conversation");
             modelBuilder.Entity<UserConversation>().ToTable("UserConversation");
             modelBuilder.Entity<Message>().ToTable("Message");
-            modelBuilder.Entity<Sender>().ToTable("Sender");
-            modelBuilder.Entity<MessageConversation>().ToTable("MessageConversation");
         }
     }
 }

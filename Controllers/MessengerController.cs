@@ -20,24 +20,29 @@ namespace WebChat.Controllers
         {
             _context = context;
         }
-        public async Task<IActionResult> IndexAsync()
+        public async Task<IActionResult> HomeAsync(int ID)
         {
+            // Current User
             var UserID = HttpContext.Session.GetInt32("userId");
+            // CHECK IF CURRENT USER IS IN THE CONVERSATION
+            var checkUserConversation = _context.UserConversations.
+                FirstOrDefault(cuc => cuc.ConversationID == ID && cuc.UserID == UserID);
+            if (checkUserConversation == null)
+            {
+                return NotFound();
+            }
             var user = await _context.Users
                 .Include(p => p.Profile)
                 .Include(uc => uc.UserConversations)
                     .ThenInclude(ucu => ucu.User)
                         .ThenInclude(ucup => ucup.Profile)
-                    //.ThenInclude(c => c.Conversation)
-                    //    .ThenInclude(mc => mc.MessageConversations)
-                    //        .ThenInclude(m => m.Message)
-                    //            .ThenInclude(s => s.Sender)
-                    //                .ThenInclude(u => u.User)
                 .FirstOrDefaultAsync(u => u.ID == UserID);
             return View(user);
         }
         public List<ConversationViewModel> ConVMs = new List<ConversationViewModel>();
+        public List<MessagesViewModel> MessVMs = new List<MessagesViewModel>();
 
+        // GET ALL CONVERSATION FOR PARTICULAR USER
         public async Task<IActionResult> GetConversations()
         {
             // Current User
@@ -55,11 +60,96 @@ namespace WebChat.Controllers
                 var UserFullName = _context.Users.FirstOrDefault(u => u.ID == userId).FullName;
                 var UserAvatar = _context.Users.Include(u => u.Profile)
                     .FirstOrDefault(u => u.ID == userId).Profile.UserAvatar;
-                ConVMs.Add(new ConversationViewModel { UserFullName = UserFullName, UserAvatar = UserAvatar});
+                ConVMs.Add(
+                    new ConversationViewModel 
+                    { 
+                        ConversationID = i.ConversationID,
+                        UserFullName = UserFullName, 
+                        UserAvatar = UserAvatar
+                    });
             }
             return Json(ConVMs);
         }
+        // GET ALL MESSAGES FROM PARTICULAR CONVERSATION
+        public async Task<IActionResult> Conversation(int ID)
+        {
+            // Current User
+            var UserID = HttpContext.Session.GetInt32("userId");
+            //var UserID = 1;
+            // CHECK IF CURRENT USER IS IN THE CONVERSATION
+            var checkUserConversation = _context.UserConversations.
+                FirstOrDefault(cuc => cuc.ConversationID == ID && cuc.UserID == UserID);
+            if (checkUserConversation == null)
+            {
+                return NotFound();
+            }
+            // GET ALL MESSAGES
+            var messagesList = _context.Messages.Where(m => m.ConversationID == ID).ToList();
+            foreach (var message in messagesList)
+            {
+                var senderID = message.UserID;
+                var senderAvatar = _context.Profiles.FirstOrDefault(p => p.UserID == senderID).UserAvatar;
+                var messageText = message.MessageText;
+                var sentTime = message.SentTime;
+                MessVMs.Add(
+                    new MessagesViewModel
+                    {
+                        ConversationID = ID,
+                        SenderID = senderID,
+                        SenderAvatar = senderAvatar,
+                        SenderMessage = messageText,
+                        MessagedTime = sentTime
+                    });
+            }
+            if(messagesList == null)
+            {
+                return Json(1);
+            }
+            return Json(MessVMs);
+        }
 
+        //public bool InitialMessages()
+        //{
+        //    Message message = new Message()
+        //    {
+        //        MessageText = "How Are You?",
+        //        SentTime = System.DateTime.Now,
+        //        ConversationID = 1,
+        //        UserID = 1
+        //    };
+        //    _context.Messages.Add(message);
+        //    _context.SaveChanges();
+        //    message = new Message()
+        //    {
+        //        MessageText = "Are You Still Good?",
+        //        SentTime = System.DateTime.Now.AddMinutes(1),
+        //        ConversationID = 1,
+        //        UserID = 1
+        //    };
+        //    _context.Messages.Add(message);
+        //    _context.SaveChanges();
+        //    message = new Message()
+        //    {
+        //        MessageText = "Im just fine",
+        //        SentTime = System.DateTime.Now.AddMinutes(2),
+        //        ConversationID = 1,
+        //        UserID = 2
+        //    };
+        //    _context.Messages.Add(message);
+        //    _context.SaveChanges();
+        //    message = new Message()
+        //    {
+        //        MessageText = "How about you",
+        //        SentTime = System.DateTime.Now.AddMinutes(1),
+        //        ConversationID = 1,
+        //        UserID = 2
+        //    };
+        //    _context.Messages.Add(message);
+        //    _context.SaveChanges();
+        //    return true;
+        //}
+
+        // CREATE NEW CONVERSATION
         [HttpPost]
         public async Task<IActionResult> NewConversationAsync(int userId)
         {
