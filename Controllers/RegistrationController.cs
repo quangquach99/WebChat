@@ -97,6 +97,7 @@ namespace WebChat.Controllers
 
         public IActionResult Logout()
         {
+            //Kill CURRENT SESSION
             HttpContext.Session.Remove("userFullname"); 
             HttpContext.Session.Remove("userEmail");
             HttpContext.Session.Remove("userId");
