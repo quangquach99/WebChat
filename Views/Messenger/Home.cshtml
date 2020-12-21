@@ -47,7 +47,7 @@
                 </a>
             </div>
             <div id="logoutAction">
-                <a href="~/logout">
+                <a asp-controller="Registration" asp-action="Logout">
                     <i class="fas fa-sign-out-alt"></i>
                 </a>
             </div>
@@ -157,8 +157,8 @@
             <div id="singleConversationSearch">
                 <input type="text" name="searchUser" id="searchUser" placeholder="Search User...">
                 <div id="searchUserResults">
-                    <div class="searchUserResult">
-                        <div class="searchResult">
+                    <div class="searchUserResult" id="searchUserResult">
+                        @*<div class="searchResult">
                             <img src="./images/daiduong.png" alt="avatar">
                             <span class="conversationName">Ngô Đại Dương</span>
                             <a href="#">
@@ -197,7 +197,7 @@
                             <a class="getUserId" href="6">
                                 <i class="fab fa-facebook-messenger"></i>
                             </a>
-                        </div>
+                        </div>*@
                     </div>
                 </div>
             </div>
