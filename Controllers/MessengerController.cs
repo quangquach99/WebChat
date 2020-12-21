@@ -227,5 +227,60 @@ namespace WebChat.Controllers
             }
             return NotFound();
         }
+  
+        public IActionResult SearchConversation(string nameUser)
+        {
+            // Get UserID of current user
+            var UserID = HttpContext.Session.GetInt32("userId");
+            // Get All UserConversations Related To This Current User
+            var currentUserConversations = _context.UserConversations.Where(uc => uc.UserID == UserID).ToList();
+            // Get list conversation of user
+            foreach (var i in currentUserConversations)
+            {
+                // View Model
+                var userId = _context.UserConversations.
+                    FirstOrDefault(u => (u.UserID != UserID && u.ConversationID == i.ConversationID)).UserID;
+                var userSeen = _context.UserConversations.
+                    FirstOrDefault(u => (u.UserID != UserID && u.ConversationID == i.ConversationID)).UserSeen;
+                var UserFullName = _context.Users.FirstOrDefault(u => u.ID == userId).FullName;
+                var UserAvatar = _context.Users.Include(u => u.Profile)
+                    .FirstOrDefault(u => u.ID == userId).Profile.UserAvatar;
+                ConVMs.Add(
+                    new ConversationViewModel
+                    {
+                        ConversationID = i.ConversationID,
+                        UserFullName = UserFullName,
+                        UserAvatar = UserAvatar
+                    });
+            }
+            // Check the string to search
+            if (nameUser != null)
+            {
+                List<ConversationViewModel> ConVMs2 = new List<ConversationViewModel>();               
+                foreach (var us in ConVMs)
+                {
+                    // searches for the names of the users that the current user has connected to by the search character
+                    if (us.UserFullName.ToLower().Contains(nameUser.ToLower()))
+                    {
+                        ConVMs2.Add(us);
+                    }
+                }
+                if (ConVMs2.Count == 0)
+                {
+                    // Return name user if no match was found
+                    return Json(nameUser);
+                }
+                else
+                {
+                    // Returns the list of users the current user wants to search
+                    return Json(ConVMs2);
+                }
+            }
+            else
+            {
+                // Return list conversation of current user if user didn't enter anything
+                return Json(ConVMs);
+            }                               
+        }
     }
 }

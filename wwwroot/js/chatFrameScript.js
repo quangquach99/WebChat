@@ -1,4 +1,4 @@
-$(document).ready(function () { 
+﻿$(document).ready(function () { 
     // Load Messages From Bottom
     $("#messages").scrollTop($("#messages")[0].scrollHeight);
 
@@ -74,13 +74,65 @@ $(document).ready(function () {
             console.log(textStatus + ': ' + errorThrown);
         });
     });
+
+    //Search conversation current user
+    $("#search").keyup(function () {
+        var NameUser = "";
+        // Checks value the input
+        if (this.value.length != 0) {
+            NameUser = this.value;
+        }
+            let data = {
+                'nameUser': NameUser
+            }
+            $.ajax({
+                data: data,
+                dataType: "Json",
+                method: "POST",
+                url: "/Messenger/SearchConversation"
+            }).done(function (response) {
+                if (response != NameUser) {
+                    var conversations = "";
+                    response.forEach(function (value, index, array) {
+                        if (value['conversationID'] == currentConversationId) {
+                            $("#sendToUser").html(value['userFullName']);
+                            conversations += "<a href='./" + value['conversationID'] + "'>"
+                                + "<li class='conversation active'>"
+                                + "<img src='https://localhost:44341/images/" + value['userAvatar'] + "' alt='avatar' />"
+                                + "<span class='username'>" + value['userFullName'] + "</span>"
+                                + "<span class='time'>2:09 PM</span>"
+                                + "<span class='preview'>I was wondering...</span>"
+                                + "</li>"
+                                + "</a>";
+                        } else {
+                            conversations += "<a href='./" + value['conversationID'] + "'>"
+                                + "<li class='conversation'>"
+                                + "<img src='https://localhost:44341/images/" + value['userAvatar'] + "' alt='avatar' />"
+                                + "<span class='username'>" + value['userFullName'] + "</span>"
+                                + "<span class='time'>2:09 PM</span>"
+                                + "<span class='preview'>I was wondering...</span>"
+                                + "</li>"
+                                + "</a>";
+                        }
+                    });
+                } else {
+                    conversations = "No matching results were found";
+                }
+                $("#conversationList").html(conversations);
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus + ': ' + errorThrown);
+            });
+
+    });
+    getConversations();
+    getMessages();
 });
 
 // Auto Reset After 1 second
 setInterval(function () {
     getConversations();
     getMessages();
-}, 1000);
+}, 100000);
 
 // GET CURRENT CONVERSATION FROM URL
 var currentUrl = window.location.href;
@@ -213,3 +265,4 @@ function getMessages() {
         });
     });
 }
+
