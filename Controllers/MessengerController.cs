@@ -84,6 +84,24 @@ namespace WebChat.Controllers
             {
                 return NotFound();
             }
+            // UPDATE USER SEEN STATUS IN USERCONVERSATION
+            var ucToUpdate = await _context.UserConversations.FindAsync(checkUserConversation.ID);
+            if(ucToUpdate.UserSeen == 0)
+            {
+                ucToUpdate.UserSeen = 1;
+                if (ucToUpdate == null)
+                {
+                    return NotFound();
+                }
+                if (await TryUpdateModelAsync<UserConversation>(
+                    ucToUpdate,
+                    "UserConversation",
+                    s => s.UserSeen))
+                {
+                    await _context.SaveChangesAsync();
+                }
+            }
+            
             // GET ALL MESSAGES
             var messagesList = _context.Messages.Where(m => m.ConversationID == ID).ToList();
             foreach (var message in messagesList)
@@ -275,6 +293,96 @@ namespace WebChat.Controllers
                 }
             
                                           
+        }
+
+        // NEW MESSAGE
+        [HttpPost]
+        public async Task<IActionResult> NewMessage(string message, int conversationID)
+        {
+            // Get UserID Of Sender
+            var currentUserId = HttpContext.Session.GetInt32("userId");
+            // Validate Message
+            if(message.Contains('<') || message.Contains('>') 
+                || message.Contains('\'') || message.Contains('"') 
+                || message.Contains('&')) {
+                return Json(0);
+            } else
+            {
+                // CHECK CONVERSATION IS VALIDE OR NOT
+                var checkConversation = _context.UserConversations.
+                    FirstOrDefault(c => c.ConversationID == conversationID && c.UserID == currentUserId);
+                if(checkConversation != null)
+                {
+                    // SAVE TO MESSAGE TABLE
+                    Message newMessage = new Message();
+                    newMessage.UserID = (int)currentUserId;
+                    newMessage.ConversationID = conversationID;
+                    newMessage.MessageText = message;
+                    newMessage.SentTime = System.DateTime.Now;
+                    _context.Add(newMessage);
+                    await _context.SaveChangesAsync();
+                    // UPDATE USER SEEN STATUS IN USERCONVERSATION
+                    var ucToUpdate = await _context.UserConversations.FindAsync(checkConversation.ID);
+                    ucToUpdate.UserSeen = 1;
+                    if(ucToUpdate == null)
+                    {
+                        return NotFound();
+                    }
+                    if (await TryUpdateModelAsync<UserConversation>(
+                        ucToUpdate,
+                        "UserConversation",
+                        s => s.UserSeen))
+                    {
+                        await _context.SaveChangesAsync();
+                    }
+                    // GET ALL UserIDs FROM THAT CONVERSATION
+                    var userConversations = _context.UserConversations.
+                        Where(u => u.ConversationID == conversationID && u.UserID != currentUserId).ToList();
+                    // UPDATE SEEN STATUS FOR ALL OTHER USERS IN THE CONVERSATION
+                    foreach(var userConversation in userConversations)
+                    {
+                        var tempUcToUpdate = await _context.UserConversations.FindAsync(userConversation.ID);
+                        tempUcToUpdate.UserSeen = 0;
+                        if (tempUcToUpdate == null)
+                        {
+                            return NotFound();
+                        }
+                        if (await TryUpdateModelAsync<UserConversation>(
+                            tempUcToUpdate,
+                            "UserConversation",
+                            s => s.UserSeen))
+                        {
+                            await _context.SaveChangesAsync();
+                        }
+                    }
+                    return Json(1);
+                } else
+                {
+                    return Json(0);
+                }
+            }
+        }
+
+        // Check New Message
+        public async Task<IActionResult> CheckNewMessage(int conversationID)
+        {
+            // Get UserID Of Sender
+            var currentUserId = HttpContext.Session.GetInt32("userId");
+            // Get UserConversation
+            var userConversation = _context.UserConversations
+                .FirstOrDefault(s => s.ConversationID == conversationID && s.UserID == currentUserId);
+            // Check
+            if(userConversation != null)
+            {
+                if(userConversation.UserSeen == 0)
+                {
+                    return Json(1);
+                } else
+                {
+                    return Json(0);
+                }
+            }
+            return NotFound();
         }
     }
 }

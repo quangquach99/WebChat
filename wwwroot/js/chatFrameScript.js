@@ -1,6 +1,8 @@
-﻿$(document).ready(function () { 
-    // Load Messages From Bottom
-    $("#messages").scrollTop($("#messages")[0].scrollHeight);
+﻿$(document).ready(function () {
+    // Close Notification
+    $("#closeNotification").click(function () {
+        $("#notification").fadeOut();
+    });
 
     // Toggle Create Conversation Box
     $("#createConversation").click(function () {
@@ -13,32 +15,28 @@
         $("#createConversationBox").fadeOut();
         $("#searchUserResults").fadeOut();
     });
+
     // Show Input For Searching User
     $("#singleConversation").click(function () {
         $("#searchUser").fadeIn();
     });
-    // Create A New Conversation
-    //$(".getUserId").click(function (event) {
-    //    // Get UserId That Wanted To Create Conversation With
-    //    event.preventDefault();
-    //    var index = $(".getUserId").index($(this));
-    //    var userId = $(".getUserId").eq(index).attr('href');
-    //    console.log(userId)
-    //    // Create A New Conversation
-    //    let data = {
-    //        'userId': userId
-    //    };
-    //    $.ajax({
-    //        data: data,
-    //        dataType: 'json',
-    //        method: "POST",
-    //        url: "/Messenger/NewConversation"
-    //    }).done(function (response) {
-    //        console.log(response);
-    //    }).fail(function (jqXHR, textStatus, errorThrown) {
-    //        console.log(textStatus + ': ' + errorThrown);
-    //    });
-    //});
+
+    // When User Click Send Message
+    $("#sendMessageBtn").click(function () {
+        newMessage();
+    });
+
+    //When User Press Enter
+    $("#sendInput").keypress(function (event) {
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        if (keycode == '13') {
+            newMessage();
+        }
+        //Stop the event from propogation to other handlers
+        //If this line will be removed, then keypress event handler attached 
+        //at document level will also be triggered
+        event.stopPropagation();
+    });
 
     // Search Users For Creating New Conversation
     $("#searchUser").keyup(function () {
@@ -95,10 +93,10 @@
                         conversations += "<div class='searchResult'>"
                             + "<img src='https://localhost:44341/images/ " + value['userAvatar'] + "' alt='avatar'>"
                             + "<span class='conversationName'>" + value['userFullName'] + "</span > "
-                            + "<a href='./" + value['conversationID'] + "'>"
+                            + "<a href='./" + value['UserID']  + "'>"
                             + "<i class='fas fa-user-circle'></i>"
                             + "</a>"
-                            + "<a class='getUserId' href='./'" + value['UserID'] + ">"
+                            + "<a class='getUserId' href='./" + value['conversationID'] + "'>"
                             + "<i class='fab fa-facebook-messenger'></i>"
                             + "</a>"
                             + "</div>";
@@ -115,12 +113,15 @@
             $("#searchResults").empty();
         }     
     });
+
+    // Initial Messages For Chat Frame
+    getMessages();
 });
 
 // Auto Reset After 1 second
 setInterval(function () {
     getConversations();
-    getMessages();
+    checkNewMessage();
 }, 1000);
 
 // GET CURRENT CONVERSATION FROM URL
@@ -175,7 +176,7 @@ function getMessages() {
         $.ajax({
             dataType: 'json',
             method: "GET",
-            url: "/Messenger/Conversation/" + currentConversationId,
+            url: "/Messenger/Conversation/" + currentConversationId
         }).done(function (response) {
             // INITIAL THE FIRST RECORD
             var messObj = [
@@ -225,8 +226,9 @@ function getMessages() {
                         + "<div class='message'>";
                     for (var x = 0; x < messObj[j]['grouppedMessages'].length; x++) {
                         messages +=
-                            "<p>" + messObj[j]['grouppedMessages'][x]['senderMessage'] + "</p>"
-                            + "<br>";
+                            "<div class='detail'>"
+                            + "<p>" + messObj[j]['grouppedMessages'][x]['senderMessage'] + "</p>"
+                            + "</div>";
                     }
                     messages +=
                         "</div>"
@@ -240,18 +242,78 @@ function getMessages() {
                         + "<div class='message'>";
                     for (var x = 0; x < messObj[j]['grouppedMessages'].length; x++) {
                         messages +=
-                            "<p>" + messObj[j]['grouppedMessages'][x]['senderMessage'] + "</p>"
-                            + "<br>";
+                            "<div class='detail'>"
+                            + "<p>" + messObj[j]['grouppedMessages'][x]['senderMessage'] + "</p>"
+                            + "</div>";
                     }
                     messages +=
                         "</div>"
                         + "</div>";
                 }
             }
-            $("#messages").html(messages);
+            $("#messages").append(messages);
+            // Load Messages From Bottom
+            $("#messages").scrollTop($("#messages")[0].scrollHeight);
         }).fail(function (jqXHR, textStatus, errorThrown) {
             alert(textStatus + ': ' + errorThrown);
         });
     });
 }
 
+// Send New Message
+function newMessage() {
+    $(document).ready(function () {
+        // Get Message Value And Check For Validations
+        var message = $("#sendInput").val();
+        if (message == "") {
+            $("#notificationMessage").addClass("text-danger");
+            $("#notificationMessage").html("Message Can Not Be Empty!");
+            $("#notification").fadeIn();
+        } else if (message.length > 8000) {
+            $("#notificationMessage").addClass("text-danger");
+            $("#notificationMessage").html("You Have Exceeded The Limit Characters!");
+            $("#notification").fadeIn();
+        } else {
+            // Encode
+            var encodedMessage = message.replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+            // Ajax For Calling MessengerController To Save New Message
+            var data = {
+                'message': encodedMessage,
+                'conversationID': currentConversationId
+            }
+            $.ajax({
+                data: data,
+                dataType: "Json",
+                method: "POST",
+                url: "/Messenger/NewMessage"
+            }).done(function (response) {
+                $("#sendInput").val("");
+                getMessages();
+                getConversations();
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus + ': ' + errorThrown);
+            });
+        } 
+    });
+}
+
+// Check New Message
+function checkNewMessage() {
+    $(document).ready(function () {
+        $.ajax({
+            dataType: "Json",
+            method: "GET",
+            url: "/Messenger/CheckNewMessage?conversationID=" + currentConversationId
+        }).done(function (response) {
+            if (response == 1) {
+                getMessages();
+            }
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            alert(textStatus + ': ' + errorThrown);
+        });;
+    });
+}

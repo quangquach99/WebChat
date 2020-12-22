@@ -29,7 +29,8 @@ namespace WebChat.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Login([Bind("Email,Password")] User user)
         {
-                User objAccount =  _context.Users.FirstOrDefault(ac => ac.Email == user.Email);
+                User objAccount =  _context.Users.Include(a=>a.Profile)
+                .FirstOrDefault(ac => ac.Email == user.Email);
                 if(objAccount != null)
                 {
                     CEncryptor hash = new CEncryptor();
@@ -38,7 +39,9 @@ namespace WebChat.Controllers
                         HttpContext.Session.SetString("userFullname", objAccount.FullName.ToString());
                         HttpContext.Session.SetString("userEmail", objAccount.Email.ToString());
                         HttpContext.Session.SetInt32("userId", objAccount.ID);
-                        return RedirectToAction("Index", "Home");
+                        HttpContext.Session.SetString("FirstName", objAccount.FirstName.ToString());
+                        HttpContext.Session.SetString("UserAvatar", objAccount.Profile.UserAvatar.ToString());
+                    return RedirectToAction("Index", "Home");
                     }
                     else
                     {
