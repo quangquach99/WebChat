@@ -77,11 +77,9 @@
 
     //Search conversation current user
     $("#search").keyup(function () {
-        var NameUser = "";
         // Checks value the input
         if (this.value.length != 0) {
-            NameUser = this.value;
-        }
+            var NameUser = this.value;
             let data = {
                 'nameUser': NameUser
             }
@@ -94,45 +92,36 @@
                 if (response != NameUser) {
                     var conversations = "";
                     response.forEach(function (value, index, array) {
-                        if (value['conversationID'] == currentConversationId) {
-                            $("#sendToUser").html(value['userFullName']);
-                            conversations += "<a href='./" + value['conversationID'] + "'>"
-                                + "<li class='conversation active'>"
-                                + "<img src='https://localhost:44341/images/" + value['userAvatar'] + "' alt='avatar' />"
-                                + "<span class='username'>" + value['userFullName'] + "</span>"
-                                + "<span class='time'>2:09 PM</span>"
-                                + "<span class='preview'>I was wondering...</span>"
-                                + "</li>"
-                                + "</a>";
-                        } else {
-                            conversations += "<a href='./" + value['conversationID'] + "'>"
-                                + "<li class='conversation'>"
-                                + "<img src='https://localhost:44341/images/" + value['userAvatar'] + "' alt='avatar' />"
-                                + "<span class='username'>" + value['userFullName'] + "</span>"
-                                + "<span class='time'>2:09 PM</span>"
-                                + "<span class='preview'>I was wondering...</span>"
-                                + "</li>"
-                                + "</a>";
-                        }
+                        conversations += "<div class='searchResult'>"
+                            + "<img src='https://localhost:44341/images/ " + value['userAvatar'] + "' alt='avatar'>"
+                            + "<span class='conversationName'>" + value['userFullName'] + "</span > "
+                            + "<a href='./" + value['conversationID'] + "'>"
+                            + "<i class='fas fa-user-circle'></i>"
+                            + "</a>"
+                            + "<a class='getUserId' href='./'" + value['UserID'] + ">"
+                            + "<i class='fab fa-facebook-messenger'></i>"
+                            + "</a>"
+                            + "</div>";
                     });
                 } else {
                     conversations = "No matching results were found";
                 }
-                $("#conversationList").html(conversations);
+                //$(".searchResults").css({ 'display': ''});
+                $("#searchResults").html(conversations);
             }).fail(function (jqXHR, textStatus, errorThrown) {
                 console.log(textStatus + ': ' + errorThrown);
             });
-
+        } else {
+            $("#searchResults").empty();
+        }     
     });
-    getConversations();
-    getMessages();
 });
 
 // Auto Reset After 1 second
 setInterval(function () {
     getConversations();
     getMessages();
-}, 100000);
+}, 1000);
 
 // GET CURRENT CONVERSATION FROM URL
 var currentUrl = window.location.href;
