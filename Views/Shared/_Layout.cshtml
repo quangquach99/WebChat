@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http;
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -48,10 +50,10 @@
                                 <a class="nav-link" href="#">
                                     <div class="show-user">
                                         <div class="avataUser">
-                                            <img class="avata-user" src="~/images/130578837_2455415874753395_2875305709627933570_n.jpg" alt="">
+                                            <img class="avata-user" src="~/images/@Context.Session.GetString("UserAvatar")" alt="">
                                         </div>
                                         <div class="nameUser">
-                                            <span>Dương</span>
+                                            <span>@Context.Session.GetString("FirstName")</span>
                                         </div>
                                     </div>
                                 </a>
@@ -89,11 +91,11 @@
                     <a class="list-group-item list-group-item-action sbl-list-group-item" id="list-home-list" data-toggle="list" href="#" role="tab" aria-controls="home">
                         <div class="item-list-SupportedContent">
                             <div class="icon-item">
-                                <img class="avata-user" src="~/images/130578837_2455415874753395_2875305709627933570_n.jpg" alt="">
+                                <img class="avata-user" src="~/images/@Context.Session.GetString("UserAvatar")" alt="">
                             </div>
                             <div class="text-item">
                                 <div class="content-item">
-                                    Dương Ngô Đại
+                                    @Context.Session.GetString("userFullname")
                                 </div>
                             </div>
                         </div>

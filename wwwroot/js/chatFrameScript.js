@@ -93,10 +93,10 @@
                         conversations += "<div class='searchResult'>"
                             + "<img src='https://localhost:44341/images/ " + value['userAvatar'] + "' alt='avatar'>"
                             + "<span class='conversationName'>" + value['userFullName'] + "</span > "
-                            + "<a href='./" + value['conversationID'] + "'>"
+                            + "<a href='./" + value['UserID']  + "'>"
                             + "<i class='fas fa-user-circle'></i>"
                             + "</a>"
-                            + "<a class='getUserId' href='./'" + value['UserID'] + ">"
+                            + "<a class='getUserId' href='./" + value['conversationID'] + "'>"
                             + "<i class='fab fa-facebook-messenger'></i>"
                             + "</a>"
                             + "</div>";
