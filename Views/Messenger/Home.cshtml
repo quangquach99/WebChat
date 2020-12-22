@@ -31,6 +31,13 @@
 </head>
 
 <body>
+    <!-- ALERT -->
+    <div id="notification">
+        <p id="notificationMessage"></p>
+        <span id="closeNotification"><i class="fas fa-times"></i></span>
+    </div>
+
+
     <!-- NAVIGATION BAR -->
     <div id="navigationBar">
         <div id="logo">
@@ -136,7 +143,7 @@
                         <!-- Message Form Send -->
                         <div class="row" id="sendMessage">
                             <input type="text" id="sendInput" placeholder="Type a message...">
-                            <span class="input-group-text">
+                            <span class="input-group-text" id="sendMessageBtn">
                                 <i class="fa fa-paper-plane"></i>
                             </span>
                         </div>
@@ -159,45 +166,45 @@
                 <div id="searchUserResults">
                     <div class="searchUserResult" id="searchUserResult">
                         @*<div class="searchResult">
-                            <img src="./images/daiduong.png" alt="avatar">
-                            <span class="conversationName">Ngô Đại Dương</span>
-                            <a href="#">
-                                <i class="fas fa-user-circle"></i>
-                            </a>
-                            <a class="getUserId" href="2">
-                                <i class="fab fa-facebook-messenger"></i>
-                            </a>
-                        </div>
-                        <div class="searchResult">
-                            <img src="./images/kimhuy.jpg" alt="avatar">
-                            <span class="conversationName">Nguyễn Kim Huy</span>
-                            <a href="#">
-                                <i class="fas fa-user-circle"></i>
-                            </a>
-                            <a class="getUserId" href="4">
-                                <i class="fab fa-facebook-messenger"></i>
-                            </a>
-                        </div>
-                        <div class="searchResult">
-                            <img src="./images/daiduong.png" alt="avatar">
-                            <span class="conversationName">Ngô Đại Dương</span>
-                            <a href="#">
-                                <i class="fas fa-user-circle"></i>
-                            </a>
-                            <a class="getUserId" href="2">
-                                <i class="fab fa-facebook-messenger"></i>
-                            </a>
-                        </div>
-                        <div class="searchResult">
-                            <img src="./images/kimhuy.jpg" alt="avatar">
-                            <span class="conversationName">Nguyễn Kim Huy</span>
-                            <a href="#">
-                                <i class="fas fa-user-circle"></i>
-                            </a>
-                            <a class="getUserId" href="6">
-                                <i class="fab fa-facebook-messenger"></i>
-                            </a>
-                        </div>*@
+                                <img src="./images/daiduong.png" alt="avatar">
+                                <span class="conversationName">Ngô Đại Dương</span>
+                                <a href="#">
+                                    <i class="fas fa-user-circle"></i>
+                                </a>
+                                <a class="getUserId" href="2">
+                                    <i class="fab fa-facebook-messenger"></i>
+                                </a>
+                            </div>
+                            <div class="searchResult">
+                                <img src="./images/kimhuy.jpg" alt="avatar">
+                                <span class="conversationName">Nguyễn Kim Huy</span>
+                                <a href="#">
+                                    <i class="fas fa-user-circle"></i>
+                                </a>
+                                <a class="getUserId" href="4">
+                                    <i class="fab fa-facebook-messenger"></i>
+                                </a>
+                            </div>
+                            <div class="searchResult">
+                                <img src="./images/daiduong.png" alt="avatar">
+                                <span class="conversationName">Ngô Đại Dương</span>
+                                <a href="#">
+                                    <i class="fas fa-user-circle"></i>
+                                </a>
+                                <a class="getUserId" href="2">
+                                    <i class="fab fa-facebook-messenger"></i>
+                                </a>
+                            </div>
+                            <div class="searchResult">
+                                <img src="./images/kimhuy.jpg" alt="avatar">
+                                <span class="conversationName">Nguyễn Kim Huy</span>
+                                <a href="#">
+                                    <i class="fas fa-user-circle"></i>
+                                </a>
+                                <a class="getUserId" href="6">
+                                    <i class="fab fa-facebook-messenger"></i>
+                                </a>
+                            </div>*@
                     </div>
                 </div>
             </div>
