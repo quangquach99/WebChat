@@ -362,5 +362,27 @@ namespace WebChat.Controllers
                 }
             }
         }
+
+        // Check New Message
+        public async Task<IActionResult> CheckNewMessage(int conversationID)
+        {
+            // Get UserID Of Sender
+            var currentUserId = HttpContext.Session.GetInt32("userId");
+            // Get UserConversation
+            var userConversation = _context.UserConversations
+                .FirstOrDefault(s => s.ConversationID == conversationID && s.UserID == currentUserId);
+            // Check
+            if(userConversation != null)
+            {
+                if(userConversation.UserSeen == 0)
+                {
+                    return Json(1);
+                } else
+                {
+                    return Json(0);
+                }
+            }
+            return NotFound();
+        }
     }
 }
