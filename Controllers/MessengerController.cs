@@ -41,6 +41,7 @@ namespace WebChat.Controllers
         }
         public List<ConversationViewModel> ConVMs = new List<ConversationViewModel>();
         public List<MessagesViewModel> MessVMs = new List<MessagesViewModel>();
+        public List<SearchUsersViewModel> SearchUVMs = new List<SearchUsersViewModel>();
 
         // GET ALL CONVERSATION FOR PARTICULAR USER
         public async Task<IActionResult> GetConversations()
@@ -107,6 +108,28 @@ namespace WebChat.Controllers
             }
             return Json(MessVMs);
         }
+        // SEARCH USER FOR CREATING NEW CONVERSATION
+        public async Task<IActionResult> SearchUsers(string searchHint)
+        {
+            // GET USERS USING LIKE %searchHint%
+            var users = _context.Users
+                .Where(u => u.FirstName.Contains(searchHint) || u.LastName.Contains(searchHint)).ToList();
+            // LOOP THROUGH THE users TO ASSIGN VALUES TO SearchUsersViewModel
+            foreach(var i in users)
+            {
+                var userID = i.ID;
+                var userFullname = i.FullName;
+                var userAvatar = _context.Profiles.FirstOrDefault(u => u.ID == userID).UserAvatar;
+                SearchUVMs.Add(
+                    new SearchUsersViewModel
+                    {
+                        UserID = userID,
+                        UserFullname = userFullname,
+                        UserAvatar = userAvatar
+                    });
+            }
+            return Json(SearchUVMs);
+        }
 
         //public bool InitialMessages()
         //{
@@ -150,7 +173,6 @@ namespace WebChat.Controllers
         //}
 
         // CREATE NEW CONVERSATION
-        [HttpPost]
         public async Task<IActionResult> NewConversationAsync(int userId)
         {
             // Get UserID Of Sender
@@ -171,7 +193,7 @@ namespace WebChat.Controllers
                     {
                         if (j.UserID == userId && j.Conversation.ConversationType == 0)
                         {
-                            return Json(1);
+                            return RedirectToAction("Home","Messenger", new { id = j.ConversationID });
                         }
                     }
                 }
@@ -201,7 +223,7 @@ namespace WebChat.Controllers
                 _context.Add(uC2);
                 await _context.SaveChangesAsync();
 
-                return Ok();
+                return RedirectToAction("Home", "Messenger", new { id = conversationId });
             }
             return NotFound();
         }

@@ -516,7 +516,7 @@ p {
 }
 
 #searchUserResults {
-    /*     display: none; */
+    display: none;
 }
 
 #searchUser:focus {
@@ -525,6 +525,6 @@ p {
     padding: 4px 24px;
 }
 
-.searchUserResult {
+#searchUserResult {
     background-color: white;
 }

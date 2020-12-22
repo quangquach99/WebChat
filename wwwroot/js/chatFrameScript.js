@@ -11,28 +11,65 @@
     $("#closeCreateConversationBox").click(function () {
         $("#blurForCreate").fadeOut();
         $("#createConversationBox").fadeOut();
+        $("#searchUserResults").fadeOut();
     });
     // Show Input For Searching User
     $("#singleConversation").click(function () {
         $("#searchUser").fadeIn();
     });
     // Create A New Conversation
-    $(".getUserId").click(function (event) {
-        // Get UserId That Wanted To Create Conversation With
-        event.preventDefault();
-        var index = $(".getUserId").index($(this));
-        var userId = $(".getUserId").eq(index).attr('href');
-        // Create A New Conversation
-        let data = {
-            'userId': userId
-        };
+    //$(".getUserId").click(function (event) {
+    //    // Get UserId That Wanted To Create Conversation With
+    //    event.preventDefault();
+    //    var index = $(".getUserId").index($(this));
+    //    var userId = $(".getUserId").eq(index).attr('href');
+    //    console.log(userId)
+    //    // Create A New Conversation
+    //    let data = {
+    //        'userId': userId
+    //    };
+    //    $.ajax({
+    //        data: data,
+    //        dataType: 'json',
+    //        method: "POST",
+    //        url: "/Messenger/NewConversation"
+    //    }).done(function (response) {
+    //        console.log(response);
+    //    }).fail(function (jqXHR, textStatus, errorThrown) {
+    //        console.log(textStatus + ': ' + errorThrown);
+    //    });
+    //});
+
+    // Search Users For Creating New Conversation
+    $("#searchUser").keyup(function () {
+        // GET THE HINT STRING
+        var searchHint = $(this).val();
+        console.log(searchHint);
+        // CALLING AJAX TO GET MATCHED RECORDS
         $.ajax({
-            data: data,
             dataType: 'json',
-            method: "POST",
-            url: "/Messenger/NewConversation"
+            method: "GET",
+            url: "/Messenger/SearchUsers?searchHint=" + searchHint
         }).done(function (response) {
-            console.log(response);
+            var searchUserResult = "";
+            if (response == null) {
+                searchUserResult = "No Record!!!";
+                $("#searchUserResults").fadeOut();
+            } else {
+                response.forEach(function (value, index, array) {
+                    searchUserResult +=
+                        "<div class='searchResult'>"
+                        + "<img src='https://localhost:44341/images/" + value['userAvatar'] + "' alt='avatar'>"
+                        + "<span class='conversationName'>" + value['userFullname'] + "</span>"
+                        + "<a href='#'><i class='fas fa-user-circle'></i></a>"
+                        + "<a class='getUserId' href='https://localhost:44341/Messenger/NewConversation?userId=" + value['userID'] + "'>"
+                        + "<i class='fab fa-facebook-messenger'></i>"
+                        + "</a>"
+                        + "</div>";
+                });
+                $("#searchUserResults").fadeIn();
+                $("#searchUserResult").html(searchUserResult);
+            }
         }).fail(function (jqXHR, textStatus, errorThrown) {
             console.log(textStatus + ': ' + errorThrown);
         });
