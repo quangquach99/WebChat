@@ -113,12 +113,15 @@
             $("#searchResults").empty();
         }     
     });
+
+    // Initial Messages For Chat Frame
+    getMessages();
 });
 
 // Auto Reset After 1 second
 setInterval(function () {
     getConversations();
-    getMessages();
+    checkNewMessage();
 }, 1000);
 
 // GET CURRENT CONVERSATION FROM URL
@@ -173,7 +176,7 @@ function getMessages() {
         $.ajax({
             dataType: 'json',
             method: "GET",
-            url: "/Messenger/Conversation/" + currentConversationId,
+            url: "/Messenger/Conversation/" + currentConversationId
         }).done(function (response) {
             // INITIAL THE FIRST RECORD
             var messObj = [
@@ -295,5 +298,22 @@ function newMessage() {
                 console.log(textStatus + ': ' + errorThrown);
             });
         } 
+    });
+}
+
+// Check New Message
+function checkNewMessage() {
+    $(document).ready(function () {
+        $.ajax({
+            dataType: "Json",
+            method: "GET",
+            url: "/Messenger/CheckNewMessage?conversationID=" + currentConversationId
+        }).done(function (response) {
+            if (response == 1) {
+                getMessages();
+            }
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            alert(textStatus + ': ' + errorThrown);
+        });;
     });
 }
