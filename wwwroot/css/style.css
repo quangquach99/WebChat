@@ -357,7 +357,9 @@ p {
     background-color: #00b0ff;
     color: #fff;
 }
-
+.left-message .detail {
+    float: left;
+}
 .right-message .message {
     float: right;
     margin-right: 9px;
@@ -368,13 +370,20 @@ p {
     background-color: #eceff1;
     color: black;
 }
-
+.right-message .detail {
+    float: right;
+}
 .message p {
     display: block;
     margin: 0;
     margin-bottom: 1px;
     padding: 7px 14px;
     border-radius: 12px;
+}
+.detail {
+    width: 100%;
+    margin: 0;
+    padding: 0;
 }
 /* Send message form */
 #sendMessage {
@@ -384,6 +393,7 @@ p {
     bottom: 4px;
     right: 20px;
     width: 64.66%;
+    z-index: 100;
 }
 
 #sendInput {
@@ -527,4 +537,36 @@ p {
 
 #searchUserResult {
     background-color: white;
+}
+
+/* NOTIFICATION */
+#notification {
+    display: none;
+    max-width: 70%;
+    height: auto;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%,0);
+    background-color: white;
+    border: 1px solid #e6e6e6;
+    z-index: 1000;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+}
+
+    #notification p {
+        width: 100%;
+        margin: 14px 44px 14px 34px;
+    }
+
+#closeNotification {
+    position: absolute;
+    top: 16px;
+    right: 14px;
+    font-size: 14px;
+    cursor: pointer;
+    color: black;
 }
