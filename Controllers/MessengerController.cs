@@ -48,28 +48,40 @@ namespace WebChat.Controllers
         {
             // Current User
             var UserID = HttpContext.Session.GetInt32("userId");
+            //var UserID = 1;
             // Get All UserConversations Related To This Current User
             var currentUserConversations = _context.UserConversations.Where(uc => uc.UserID == UserID).ToList();
             foreach (var i in currentUserConversations)
             {
             // View Model
-            // UserId That Related To The Conversation with the current user
-                var userId = _context.UserConversations.
-                    FirstOrDefault(u => (u.UserID != UserID && u.ConversationID == i.ConversationID)).UserID;
-                var userSeen = _context.UserConversations.
-                    FirstOrDefault(u => (u.UserID != UserID && u.ConversationID == i.ConversationID)).UserSeen;
-                var UserFullName = _context.Users.FirstOrDefault(u => u.ID == userId).FullName;
-                var UserAvatar = _context.Users.Include(u => u.Profile)
-                    .FirstOrDefault(u => u.ID == userId).Profile.UserAvatar;
+            // User That Related To The Conversation with the current user
+                var userConversation = _context.UserConversations.
+                    FirstOrDefault(u => (u.UserID != UserID && u.ConversationID == i.ConversationID));
+                var userSeen = _context.UserConversations.FirstOrDefault(u => u.UserID == UserID && u.ConversationID == i.ConversationID).UserSeen;
+                var userInfo = _context.Users.Include(u => u.Profile).FirstOrDefault(u => u.ID == userConversation.UserID);
+                var userFullname = userInfo.FullName;
+                var userAvatar = userInfo.Profile.UserAvatar;
+                var lastMessage = _context.Messages.OrderByDescending(l => l.ID).FirstOrDefault(l => l.ConversationID == i.ConversationID);
+                var lastMessageText = "No Messages";
+                var sentTimestamp = System.DateTime.Now;
+                string lastMessageTime = "";
+                if(lastMessage != null)
+                {
+                    lastMessageText = lastMessage.MessageText;
+                    lastMessageTime = lastMessage.SentTime.GetDateTimeFormats('t')[0] + " " + lastMessage.SentTime.GetDateTimeFormats('d')[0];
+                }
                 ConVMs.Add(
                     new ConversationViewModel 
                     { 
                         ConversationID = i.ConversationID,
-                        UserFullName = UserFullName, 
-                        UserAvatar = UserAvatar
+                        UserFullName = userFullname, 
+                        UserAvatar = userAvatar,
+                        LastMessage = lastMessageText,
+                        LastMessageTime = lastMessageTime,
+                        IsSeen = userSeen
                     });
             }
-            return Json(ConVMs);
+            return Json(ConVMs.OrderByDescending(c => c.LastMessageTime).ToList());
         }
         // GET ALL MESSAGES FROM PARTICULAR CONVERSATION
         public async Task<IActionResult> Conversation(int ID)
@@ -303,8 +315,7 @@ namespace WebChat.Controllers
             var currentUserId = HttpContext.Session.GetInt32("userId");
             // Validate Message
             if(message.Contains('<') || message.Contains('>') 
-                || message.Contains('\'') || message.Contains('"') 
-                || message.Contains('&')) {
+                || message.Contains('\'') || message.Contains('"')) {
                 return Json(0);
             } else
             {
@@ -384,5 +395,7 @@ namespace WebChat.Controllers
             }
             return NotFound();
         }
+
+        // Check New Message For Conversation Display
     }
 }

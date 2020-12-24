@@ -116,11 +116,12 @@
 
     // Initial Messages For Chat Frame
     getMessages();
+    getConversations();
 });
 
 // Auto Reset After 1 second
 setInterval(function () {
-    getConversations();
+    checkConversation();
     checkNewMessage();
 }, 1000);
 
@@ -131,6 +132,9 @@ var currentConversationId = splittedUrl[splittedUrl.length - 1];
 // GET CURRENT USER ID
 var userID = document.getElementById("userID").value;
 
+// Temporaryly saved conversation status
+var conversationsArray = [];
+
 // Render Conversations
 function getConversations() {
     $(document).ready(function () {
@@ -140,27 +144,43 @@ function getConversations() {
             url: "/Messenger/GetConversations"
         }).done(function (response) {
             var conversations = "";
+            conversationsArray = [];
             response.forEach(function (value, index, array) {
                 if (value['conversationID'] == currentConversationId) {
                     $("#sendToUser").html(value['userFullName']);
-                    conversations += "<a href='./" + value['conversationID'] + "'>"
-                        + "<li class='conversation active'>"
-                        + "<img src='https://localhost:44341/images/" + value['userAvatar'] + "' alt='avatar' />"
+                    conversations += "<a href='./" + value['conversationID'] + "'>";
+                    if (value['isSeen'] == 0) {
+                        conversations += "<li class='conversation new active'>";
+                    } else {
+                        conversations += "<li class='conversation active'>";
+                    }
+                    conversations +=                    
+                        "<img src='https://localhost:44341/images/" + value['userAvatar'] + "' alt='avatar' />"
                         + "<span class='username'>" + value['userFullName'] + "</span>"
-                        + "<span class='time'>2:09 PM</span>"
-                        + "<span class='preview'>I was wondering...</span>"
+                        + "<span class='time'>" + value['lastMessageTime'] + "</span>"
+                        + "<span class='preview'>" + value['lastMessage'] + "</span>"
                         + "</li>"
                         + "</a>";
                 } else {
-                    conversations += "<a href='./" + value['conversationID'] + "'>"
-                        + "<li class='conversation'>"
-                        + "<img src='https://localhost:44341/images/" + value['userAvatar'] + "' alt='avatar' />"
+                    conversations += "<a href='./" + value['conversationID'] + "'>";
+                    if (value['isSeen'] == 0) {
+                        conversations += "<li class='conversation new'>";
+                    } else {
+                        conversations += "<li class='conversation'>";
+                    }
+                    conversations +=
+                        "<img src='https://localhost:44341/images/" + value['userAvatar'] + "' alt='avatar' />"
                         + "<span class='username'>" + value['userFullName'] + "</span>"
-                        + "<span class='time'>2:09 PM</span>"
-                        + "<span class='preview'>I was wondering...</span>"
+                        + "<span class='time'>" + value['lastMessageTime'] + "</span>"
+                        + "<span class='preview'>" + value['lastMessage'] + "</span>"
                         + "</li>"
                         + "</a>";
                 }
+                var conversationStatus = {
+                    'conversationID': value['conversationID'],
+                    'isSeen' : value['isSeen']
+                };
+                conversationsArray.push(conversationStatus);
             });
             $("#conversationList").html(conversations);
         }).fail(function (jqXHR, textStatus, errorThrown) {
@@ -251,7 +271,7 @@ function getMessages() {
                         + "</div>";
                 }
             }
-            $("#messages").append(messages);
+            $("#messages").html(messages);
             // Load Messages From Bottom
             $("#messages").scrollTop($("#messages")[0].scrollHeight);
         }).fail(function (jqXHR, textStatus, errorThrown) {
@@ -280,6 +300,7 @@ function newMessage() {
                 .replace(/>/g, "&gt;")
                 .replace(/"/g, "&quot;")
                 .replace(/'/g, "&#039;");
+            console.log(encodedMessage);
             // Ajax For Calling MessengerController To Save New Message
             var data = {
                 'message': encodedMessage,
@@ -315,5 +336,39 @@ function checkNewMessage() {
         }).fail(function (jqXHR, textStatus, errorThrown) {
             alert(textStatus + ': ' + errorThrown);
         });;
+    });
+}
+
+// Check Status For Conversation
+function checkConversation() {
+    $.ajax({
+        dataType: 'json',
+        method: "GET",
+        url: "/Messenger/GetConversations"
+    }).done(function (response) {
+        console.log("response: ");
+        console.log(response);
+        console.log("status: ");
+        console.log(conversationsArray);
+        var refesh = 0;
+        if (response.length != conversationsArray.length) {
+            refesh = 1;
+        } else {
+            for (var i = 0; i < response.length; i++) {
+                if (response[i]['conversationID'] != conversationsArray[i]['conversationID']) {
+                    refresh = 1;
+                } else {
+                    if (response[i]['isSeen'] != conversationsArray[i]['isSeen']) {
+                        refesh = 1;
+                        break;
+                    }
+                }
+            }
+        }
+        if (refesh == 1) {
+            getConversations();
+        }
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+        alert(textStatus + ': ' + errorThrown);
     });
 }

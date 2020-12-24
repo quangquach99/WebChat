@@ -6,7 +6,7 @@
     font-family: "Source Sans Pro", sans-serif;
 }
 
-p {
+p, span {
     -ms-word-break: break-all;
     word-break: break-all;
     word-break: break-word;
@@ -264,6 +264,9 @@ p {
 .preview {
     font-size: 15px;
     color: grey;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .username, .preview {

@@ -33,11 +33,17 @@ namespace WebChat.Controllers
                 // Get Current User ID
                 var currentUserID = HttpContext.Session.GetInt32("userId");
                 // Get The Last Conversation ID
-                var lastConversationID = _context.Messages
+                var lastConversation = _context.Messages
                     .OrderByDescending(m => m.SentTime)
-                    .FirstOrDefault(m => m.UserID == currentUserID)
-                    .ConversationID;
-                ViewData["newestConversationID"] = lastConversationID;
+                    .FirstOrDefault(m => m.UserID == currentUserID);
+                if (lastConversation == null)
+                {
+                    ViewData["newestConversationID"] = _context.UserConversations.FirstOrDefault(l => l.UserID == currentUserID).ConversationID;
+                } else
+                {
+                    ViewData["newestConversationID"] = lastConversation.ConversationID;
+                }
+                
                 return View();
             }            
         }

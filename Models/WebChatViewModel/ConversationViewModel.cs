@@ -11,7 +11,7 @@ namespace WebChat.Models.WebChatViewModel
         public string UserFullName { get; set; }
         public string UserAvatar { get; set; }
         public string LastMessage { get; set; }
-        public DateTime LastMessageTime { get; set; }
+        public string LastMessageTime { get; set; }
         public int IsSeen { get; set; }
     }
 }
