@@ -18,10 +18,10 @@ namespace WebChat.Controllers
         }
         public IActionResult Index()
         {
-            //if (HttpContext.Session.GetString("userId") != null)
-            //{
-            //    return RedirectToAction("Index", "Home");
-            //}
+            if (HttpContext.Session.GetString("userId") != null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
 
